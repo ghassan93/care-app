@@ -1,0 +1,39 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12 text-center">
+                            <p>                            تم الارسال
+                            </p>
+                            <button type="button" id="btn-send-notify-redirect"
+                                class="btn btn-success waves-effect waves-light m-1"
+                                data-url="{% url 'admin:send_marketing_email_view' %}"
+                                onclick="window.location.href=this.getAttribute('data-url');">
+                            <span class="btn-label d-none d-md-inline-block">
+                                <i class="fe-check-circle mr-1"></i>
+                            </span>
+                           ارسال مرة اخرى
+                        </button>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+
+    {% block js %}
+    
+        <!-- Initialize JS -->
+        <script src="{% static 'care/assets/js/pages/notification.init.js' %}"></script>
+    {% endblock %}

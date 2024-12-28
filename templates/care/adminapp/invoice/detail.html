@@ -1,0 +1,262 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static qr_code %}
+
+{% block css %}
+    <style>
+        h2, h3, h4, h5, h6 {
+            font-family: Rubik, serif !important;
+            color: #343a40;
+        }
+
+        div.hr {
+            border-top: 1px #fff solid;
+            border-bottom: 1px #bbc0c2 solid;
+        }
+
+        div.hr hr {
+            display: none;
+        }
+
+        .w-65 {
+            width: 65%;
+        }
+
+        .invoice-title {
+            padding: 5px 40px;
+        }
+
+        .table thead tr th p {
+            margin: 1px;
+        }
+        .table td, .table th {
+            padding: 7px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:order_view' %}">إدارة بينات الطلبات</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:order_detail_view' object.order.id %}">إدارة
+                            تفاصيل الطلب</a></li>
+                        <li class="breadcrumb-item active">إدارة بينات الفواتير</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات الفواتير</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="text-left">
+                            <h3 class="mb-1">شركة اهتمام للخدمات التسويقية</h3>
+                            <p class="mb-1">
+                                <strong>العنوان : </strong>
+                                <span>المملكة العربية السعودية</span>
+                            </p>
+                            <p class="mb-1">
+                                <strong>الرقم الضريبي : </strong>
+                                <span>310721714100003</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="auth-logo">
+                            <div class="logo">
+                                    <span class="logo-lg text-center">
+                                        <img src="{% static 'care/assets/images/logo.png' %}" alt="" height="80">
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="text-right">
+                            <h3 class="mb-1">Ehtimam For Marketing Services Company</h3>
+                            <p class="mb-1">
+                                <strong>Address : </strong>
+                                <span>Saudi Arabia</span>
+                            </p>
+                            <p class="mb-1">
+                                <strong>VAT Number : </strong>
+                                <span>310721714100003</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <div class="invoice-title d-inline-block">
+                                <h4 class="mb-1">فاتورة مبيعات</h4>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="hr mb-2">
+                    <hr/>
+                </div>
+                <!-- end row -->
+
+                <div class="row mb-5">
+                    <div class="col-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0 p-0">
+                                <tbody>
+                                <tr>
+                                    <td>رقم الفاتورة</td>
+                                    <td class="text-center w-65">{{ object.id }}</td>
+                                </tr>
+                                <tr>
+                                    <td>تاريخ الإصدار</td>
+                                    <td class="text-center">{{ object.created_date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>حالة الفاتورة</td>
+                                    <td class="text-center">{{ object.get_status_display }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0 p-0">
+                                <tbody>
+                                <tr>
+                                    <td>إسم المتجر</td>
+                                    <td class="text-center w-65">{{ object.vendor }}</td>
+                                </tr>
+                                <tr>
+                                    <td>اسم العميل</td>
+                                    <td class="text-center">{{ object.customer }}</td>
+                                </tr>
+                                <tr>
+                                    <td>هاتف العميل</td>
+                                    <td class="text-center" style="direction: ltr;">{{ object.order.customer.user.phonenumber }}</td>
+                                </tr>
+                                <tr>
+                                    <td>رقم عضوية ولاء</td>
+                                    <td class="text-center">-</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-centered mb-0">
+                                <thead class="thead-light">
+                                <tr class="text-center">
+                                    <th style="width: 2%">#</th>
+                                    <th>إسم الصنف</th>
+                                    <th>الكمية</th>
+                                    <th>السعر</th>
+                                    <th>نسبة خَصْم البائع</th>
+                                    <th>قيمة الخصم</th>
+                                    <th>الإجمالي</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for invice_item in object.invoices_items.all %}
+                                <tr class="text-center">
+                                    <th>{{ forloop.counter  }}</th>
+                                    <td>{{ invice_item.sales }}</td>
+                                    <td>{% if invice_item.quantity %}{{ invice_item.quantity }}{% else %}خدمة واحدة{% endif %}</td>
+                                    <td>{{ invice_item.get_price_value_display }}</td>
+                                    <td>{{ invice_item.get_discount_percent_display }}</td>
+                                    <td>{{ invice_item.get_discount_value_display }}</td>
+                                    <td>{{ invice_item.get_total_value_display }}</td>
+                                </tr>
+                               {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="table-responsive overflow-hidden">
+                            <table class="table table-centered mb-0">
+                                <tbody>
+                                <tr>
+                                    <td colspan="6" rowspan="7" class="text-center border-0">
+                                        {% qr_from_text data size="3" image_format="png" error_correction="L" %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center border-0">عدد الأصناف المباعة</td>
+                                    <td class="border-0">
+                                        <div class="font-weight-bold text-center">{{ object.invoices_items.count }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center">إجمالي خَصْم العروض المضافة</td>
+                                    <td>
+                                        <div class="font-weight-bold text-center">{{ object.get_discount_value_display }}</div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td colspan="2" class="text-center">الإجمالي قبل الضريبة</td>
+                                    <td>
+                                        <div class="font-weight-bold text-center">{{ object.get_total_value_before_tax_display }}</div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" class="text-center">ضريبة القيمة المضافة</td>
+                                    <td>
+                                        <div class="font-weight-bold text-center">{{ object.get_tax_value_display }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center">الإجمالي بالريال سعودي</td>
+                                    <td>
+                                        <div class="font-weight-bold text-center">{{ object.get_total_value_display }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center">الإجمالي المدفوع</td>
+                                    <td>
+                                        <div class="font-weight-bold text-center">SA {{ object.payment.first.payment_object.amount }}</div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="mt-4 mb-1">
+                    <div class="text-left d-print-none">
+                        <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i> طباعة الفاتورة </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+{% endblock %}

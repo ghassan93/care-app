@@ -1,0 +1,149 @@
+    <div class="right-bar">
+        <div data-simplebar class="h-100">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-bordered nav-justified" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link py-2 active" data-toggle="tab" href="#settings-tab" role="tab">
+                        <i class="mdi mdi-cog-outline d-block font-22 my-1"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content pt-0">
+                <div class="tab-pane active" id="settings-tab" role="tabpanel">
+                    <h6 class="font-weight-medium px-3 m-0 py-2 font-13 text-uppercase bg-light">
+                        <span class="d-block py-1">إعدادت النموذج</span>
+                    </h6>
+
+                    <div class="p-3">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>التخصيص </strong> تعديل مخطط الألوان ، قائمة الشريط الجانبي ، إلخ.
+                        </div>
+
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">نظام الألوان</h6>
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="color-scheme-mode" value="light"
+                                   id="light-mode-check" checked/>
+                            <label class="custom-control-label" for="light-mode-check">الوضع الفاتح</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="color-scheme-mode" value="dark"
+                                   id="dark-mode-check"/>
+                            <label class="custom-control-label" for="dark-mode-check">الوضع الليلي</label>
+                        </div>
+
+                        <!-- Width -->
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">النطاق</h6>
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="width" value="fluid" id="fluid-check"
+                                   checked/>
+                            <label class="custom-control-label" for="fluid-check">إطار كامل</label>
+                        </div>
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="width" value="boxed" id="boxed-check"/>
+                            <label class="custom-control-label" for="boxed-check">صندوق</label>
+                        </div>
+
+                        <!-- Menu positions -->
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">القائمة</h6>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="menus-position" value="fixed"
+                                   id="fixed-check"
+                                   checked/>
+                            <label class="custom-control-label" for="fixed-check">ثابت</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="menus-position" value="scrollable"
+                                   id="scrollable-check"/>
+                            <label class="custom-control-label" for="scrollable-check">قابل للتمرير</label>
+                        </div>
+
+                        <!-- Left Sidebar-->
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">لون الشريط الجانبي الأيسر</h6>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-color" value="light"
+                                   id="light-check" checked/>
+                            <label class="custom-control-label" for="light-check">فاتح</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-color" value="dark"
+                                   id="dark-check"/>
+                            <label class="custom-control-label" for="dark-check">داكن</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-color" value="brand"
+                                   id="brand-check"/>
+                            <label class="custom-control-label" for="brand-check">ماركة</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-3">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-color" value="gradient"
+                                   id="gradient-check"/>
+                            <label class="custom-control-label" for="gradient-check">إنحدار</label>
+                        </div>
+
+                        <!-- size -->
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">حجم الشريط الجانبي الأيسر</h6>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-size" value="default"
+                                   id="default-size-check" checked/>
+                            <label class="custom-control-label" for="default-size-check">إفتراضي</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-size" value="condensed"
+                                   id="condensed-check"/>
+                            <label class="custom-control-label" for="condensed-check">صغير جدا</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="leftsidebar-size" value="compact"
+                                   id="compact-check"/>
+                            <label class="custom-control-label" for="compact-check">صغير</label>
+                        </div>
+
+                        <!-- User info -->
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">معلومات المستخدم على الشريط</h6>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="checkbox" class="custom-control-input" name="leftsidebar-user" value="fixed"
+                                   id="sidebaruser-check"/>
+                            <label class="custom-control-label" for="sidebaruser-check">تفعيل</label>
+                        </div>
+
+
+                        <!-- Topbar -->
+                        <h6 class="font-weight-medium font-14 mt-4 mb-2 pb-1">الشريط العلوى</h6>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="topbar-color" value="dark"
+                                   id="darktopbar-check"
+                                   checked/>
+                            <label class="custom-control-label" for="darktopbar-check">داكن</label>
+                        </div>
+
+                        <div class="custom-control custom-switch mb-1">
+                            <input type="radio" class="custom-control-input" name="topbar-color" value="light"
+                                   id="lighttopbar-check"/>
+                            <label class="custom-control-label" for="lighttopbar-check">فاتح</label>
+                        </div>
+
+
+                        <button class="btn btn-primary btn-block mt-4" id="resetBtn">إعادة تعيين إلى الافتراضي</button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div> <!-- end slimscroll-menu-->
+    </div>

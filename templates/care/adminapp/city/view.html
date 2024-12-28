@@ -1,0 +1,133 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item active">إدارة بينات المدن</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات المدن</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <!-- start page search -->
+    <form action="#" method="get" data-url="{% url 'admin:api:city-list' %}">
+        <input type="hidden" name="is_deleted" value="0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات البحث</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="name__contains">إسم المدينة</label>
+                                    <input type="text" id="name__contains" name="name__contains" class="form-control" placeholder="البحث من خلال إسم المدينة">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="code__contains">كود المدينة</label>
+                                    <input type="text" id="code__contains" name="code__contains" class="form-control" placeholder="البحث من خلال كود المدينة">
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="created_date">تاريخ الإنشاء</label>
+                                    <input type="text" id="created_date" name="created_date__date__range" class="form-control"  data-plugin="flatpickr" data-mode="range" placeholder="البحث من خلال تاريخ الإنشاء">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="updated_date">تاريخ التحديث</label>
+                                    <input type="text" id="updated_date" name="updated_date__date__range" class="form-control" data-plugin="flatpickr" data-mode="range" placeholder="البحث من خلال تاريخ التحديث">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 mt-3">
+                                <button id="filter" type="submit" class="btn btn-primary width-xl waves-effect waves-light">
+                                    بحث
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+    <!-- end page search -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success waves-effect waves-light"
+                                    data-plugin="redirect-to-page" data-url="{% url 'admin:city_create_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="mdi mdi-plus"></i>
+                                </span>
+                                إضافة مدينة
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-centered nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th>المدينة</th>
+                                <th>البلاد</th>
+                                <th>الكود</th>
+                                <th>رمز الرابط</th>
+                                <th>مفعلة</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                                <th style="width: 85px;">حدث</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+{% endblock %}
+
+{% block js %}
+
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/city.init.js' %}"></script>
+
+{% endblock %}

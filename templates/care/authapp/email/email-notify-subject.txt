@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}نظام كير | الإشعارات{% endblocktrans %}
+{% endautoescape %}

@@ -1,0 +1,167 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:service_view' %}">إدارة الخدمات</a></li>
+                        <li class="breadcrumb-item active">تعديل بينات الخدمات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">({{ object.name }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <form data-url="{% url 'adminapp:api:service-detail' object.slug %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات الخدمة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="name">إسم الخدمة</label>
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ object.name }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="service-vendor">إسم البائع</label>
+                                    <input type="text" id="service-vendor" readonly class="form-control" value="{{ object.get_vendor.name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="type">نوع الخدمة</label>
+                                    <input type="text" id="type" readonly class="form-control" value="{{ object.get_type_display}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="schedule">نوع الجدولة</label>
+                                    <input type="text" id="schedule" readonly class="form-control" value="{{ object.get_schedule_display }}">
+                                </div>
+                            </div>
+                             <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="place">موقع الجدولة</label>
+                                    <input type="text" id="place" readonly class="form-control" value="{{ object.get_place_display }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="price">قيمة الخدمة</label>
+                                    <input type="number" id="price" name="price" class="form-control" value="{{ object.price }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="discount">نسبة التخفيض</label>
+                                    <input type="number" id="discount" name="discount" class="form-control" value="{{ object.discount }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="tax">نسبة الضريبة</label>
+                                    <input type="number" id="tax" name="tax" class="form-control" value="{{ object.tax }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="tag_type">ساعات الخدمة</label>
+                                    <select id="hour" name="hour" class="mb-0" data-plugin="select2" data-default-value="{{ object.hour }}">
+                                        {% for hour in hours %}
+                                            <option value="{{ hour.0 }}">{{ hour.0 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="tag_type">دقائق الخدمة</label>
+                                    <select id="minute" name="minute" class="mb-0" data-plugin="select2" data-default-value="{{ object.minute }}">
+                                        {% for minute in minutes %}
+                                            <option value="{{ minute.0 }}">{{ minute.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button type="button" id="btn-update-object-redirect" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:service_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حفظ البينات و مغادرة الصفحة
+                            </button>
+                            <button type="button" id="btn-update-object" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                حفظ البينات والبقاء في الصفحة
+                            </button>
+                            {% if object.is_active %}
+                            <button type="button" class="btn btn-blue waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:service-disabled' object.slug %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حظر الخدمة
+                            </button>
+                            {% else %}
+                             <button type="button" class="btn btn-success waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:service-activate' object.slug %}">
+                                 <span class="btn-label d-none d-md-inline-block">
+                                     <i class="fe-check-circle mr-1"></i>
+                                 </span>
+                                 تنشيط الخدمة
+                            </button>
+                            {% endif %}
+                             <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:service_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+    </form>
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- Initialize JS -->
+    <script src="{% static 'care/assets/js/pages/service.init.js' %}"></script>
+{% endblock %}

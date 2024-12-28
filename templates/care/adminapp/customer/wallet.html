@@ -1,0 +1,213 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:customer_view' %}">إدارة بينات العملاء</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:customer_update_view' object.customer.user.pk %}">تحديث بينات العملاء</a></li>
+                        <li class="breadcrumb-item active">إدارة بينات المحفظة</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات المحفظة</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row row-deck">
+                    <div class="col-md-5">
+                        <a class="block block-rounded block-transparent block-link-pop badge-success" href="javascript:void(0)" data-toggle="modal" data-target="#deposit">
+                            <div class="block-content p-0 progress" style="height: 2px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="font-size-lg font-w600 mb-2 text-white">
+                                        إيداع مبلغ في المحفظة
+                                    </p>
+
+                                </div>
+                                <div class="ml-3 item">
+                                    <i class="fa fa-2x fas fa-money-check-alt text-white"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <a class="block block-rounded block-transparent block-link-pop bg-blue" href="javascript:void(0)" data-toggle="modal" data-target="#withdraw">
+                            <div class="block-content p-0 progress" style="height: 2px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="font-size-lg font-w600 mb-2 text-white">
+                                        سحب مبلغ من المحفظة
+                                    </p>
+
+                                </div>
+                                <div class="ml-3 item">
+                                    <i class="fa fa-2x fas fa-money-check-alt text-white"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات المحفظة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="id">رقم المحفظة</label>
+                                    <input type="text" id="id" name="id" readonly class="form-control" value="{{ object.id }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="name">إسم مالك المحفظة</label>
+                                    <input type="text" id="name" name="name"  readonly class="form-control" value="{{ object.customer.user.get_full_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="email">البريد الإلكتروني لمالك المحفظة</label>
+                                    <input type="email" id="email" name="email" readonly class="form-control" value="{{ object.customer.user.email }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="balance">الرصيد الحالي</label>
+                                    <input type="text" id="balance" name="balance"  readonly class="form-control" value="{{ object.balance }} SR">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- end row-->
+
+    <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-sm-4">
+                                <h4 class="header-title">سجلات العمليات</h4>
+                            </div>
+                        </div>
+                        <table id="transaction-datatable" class="table w-100 nowrap">
+                            <thead>
+                            <tr>
+                            <tr>
+                                <th>رقم العملية</th>
+                                <th>نوع العملية</th>
+                                <th>القيمة</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            {% for transaction in object.wallet_transaction.all %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ transaction.get_type_display }}</td>
+                                    <td>{{ transaction.amount }}</td>
+                                    <td>{{ transaction.created_date}}</td>
+                                    <td>{{ transaction.updated_date }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div>
+            <!-- end col-->
+        </div>
+    <!-- end row-->
+
+    <!-- start  deposit  model -->
+    <div id="deposit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">إيداع مبلغ إلى المحفظة</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form action="#" method="post" data-url="{% url 'admin:api:wallet-deposit' object.pk %}">
+                    {% csrf_token %}
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="deposit_amount" class="control-label">قيمة المبلغ</label>
+                                    <input type="number" name="amount" class="form-control" id="deposit_amount" placeholder="الرجاء إدخال قيمة المبلغ الذي تريد إيداعه">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-deposit" type="button" class="btn btn-info waves-effect">حفظ</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">أغلاف</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+
+    <!-- start withdraw  model -->
+    <div id="withdraw" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">سحب مبلغ من المحفظة</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form action="#" method="post" data-url="{% url 'admin:api:wallet-withdraw' object.pk %}">
+                    {% csrf_token %}
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="withdraw_amount" class="control-label">قيمة المبلغ</label>
+                                    <input type="number" name="amount" class="form-control" id="withdraw_amount" placeholder="الرجاء إدخال قيمة المبلغ الذي تريد سحبه">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-withdraw" type="button" class="btn btn-info waves-effect">حفظ</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">أغلاف</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+
+{% endblock %}
+{% block js %}
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/customer.init.js' %}"></script>
+{% endblock %}

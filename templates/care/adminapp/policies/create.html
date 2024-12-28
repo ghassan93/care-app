@@ -1,0 +1,104 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block css %}
+    <!-- third party css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'care/assets/libs/summernote/summernote-bs4.min.css' %}"/>
+    <!-- third party css end -->
+{% endblock %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:policies_view' %}">إدارة بينات السياسات</a></li>
+                        <li class="breadcrumb-item active">إضافة سياسة</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إضافة سياسة</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    <form action="#" method="post" data-url="{% url 'admin:api:policies-list' %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات السياسة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="title">عنوان السياسة</label>
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="الرجاء إدخال عنوان السياسة">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="content">المحتوى باللغة العربية</label>
+                                      <textarea id="content" name="content" class="form-control" ></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="content_en">المحتوى باللغة الانجليزية</label>
+                                      <textarea id="content_en" name="content_en" class="form-control" ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button id="btn-create-object-redirect" type="button" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:policies_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                إنشاء سياسة خصوصية
+                            </button>
+                            <button id="btn-create-object" type="button" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                إنشاء سياسة خصوصية وإضافة اخر
+                            </button>
+                            <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:policies_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+
+{% endblock %}
+
+{% block js %}
+    <!-- third party js -->
+    <script src="{% static 'care/assets/libs/summernote/summernote-bs4.min.js' %}"></script>
+    <script src="{% static 'care/assets/libs/summernote/lang/summernote-ar-AR.min.js' %}"></script>
+    <!-- third party js ends -->
+
+    <!-- Initialize JS -->
+    <script src="{% static 'care/assets/js/pages/policies.init.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الاعدادت</a></li>
+                        <li class="breadcrumb-item active">إعدادات الإشعارات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إعدادات الإشعارات</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row row-deck">
+
+                    <div class="col-md-4">
+                        <a class="block block-rounded block-transparent block-link-pop bg-success" href="{%  url 'admin:notification_messages_view' 'all' %}">
+                            <div class="block-content p-0 progress" style="height: 2px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="font-size-lg font-w600 mb-2 text-white">
+                                          كل المستخدمين
+                                    </p>
+                                    <p class="text-muted mb-0 text-white">
+                                        إرسال إشعار إلى جميع المستخدمين
+                                    </p>
+                                </div>
+                                <div class="ml-3 item">
+                                    <i class="fa fa-2x fas fa-sms text-white"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+
+                    <div class="col-md-4">
+                        <a class="block block-rounded block-transparent block-link-pop bg-success" href="{%  url 'admin:notification_messages_view' 'customer' %}">
+                            <div class="block-content p-0 progress" style="height: 2px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="font-size-lg font-w600 mb-2 text-white">
+                                          العملاء
+                                    </p>
+                                    <p class="text-muted mb-0 text-white">
+                                        إرسال إشعار إلى العملاء
+                                    </p>
+                                </div>
+                                <div class="ml-3 item">
+                                    <i class="fa fa-2x fas fa-sms text-white"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                     <div class="col-md-4">
+                        <a class="block block-rounded block-transparent block-link-pop bg-success" href="{%  url 'admin:notification_messages_view' 'vendor' %}">
+                            <div class="block-content p-0 progress" style="height: 2px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="font-size-lg font-w600 mb-2 text-white">
+                                          البائعين
+                                    </p>
+                                    <p class="text-muted mb-0 text-white">
+                                        إرسال إشعار إلى البائعين
+                                    </p>
+                                </div>
+                                <div class="ml-3 item">
+                                    <i class="fa fa-2x fas fa-sms text-white"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a class="block block-rounded block-transparent block-link-pop bg-success" href="{%  url 'admin:notification_view' %}">
+                            <div class="block-content p-0 progress" style="height: 2px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;"
+                                     aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="font-size-lg font-w600 mb-2 text-white">
+                                         إدارة الإشعارات
+                                    </p>
+                                    <p class="text-muted mb-0 text-white">
+                                        إدارة أشعارات لوحة التحكم
+                                    </p>
+                                </div>
+                                <div class="ml-3 item">
+                                    <i class="fa fa-2x fas  fa-sms text-white"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row-->
+
+{% endblock %}

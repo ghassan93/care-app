@@ -1,0 +1,84 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item active"><a href="{% url 'admin:notification_settings_view' %}">إعدادات الإشعارات</a></li>
+                        <li class="breadcrumb-item active">إدارة الإشعارات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">الإشعارات</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <div class="text-lg-right mt-3 mt-lg-0">
+                            <div class="btn-group mb-2">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    الحدث<span class="btn-label d-none d-md-inline-block" style="padding: .3rem .9rem;"><i class="mdi mdi-chevron-down"></i></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button id="delete-checked-object" class="dropdown-item">حذف العناصر المحددة</button>
+                                </div>
+                            </div><!-- /btn-group -->
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-centered  nowrap w-100" id="notification-datatable" data-url="{% url 'auth:api:notification-list' %}">
+                            {% csrf_token %}
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </th>
+                                <th> إسم الفاعل</th>
+                                <th> معرف الفاعل</th>
+                                <th>الإشعار</th>
+                                <th>تاريخ إرسال الإشعار</th>
+                                <th>حالة الإشعار</th>
+                                <th style="width: 85px;">اخرى</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+{% endblock %}
+{% block js %}
+
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/notification.init.js' %}"></script>
+
+{% endblock %}

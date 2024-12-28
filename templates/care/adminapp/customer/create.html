@@ -1,0 +1,179 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:customer_view' %}">إدارة بينات العملاء</a></li>
+                        <li class="breadcrumb-item active">إضافة عميل</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إضافة عميل</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <form action="#" method="post" data-url="{% url 'auth:api:register-customer' %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات عامة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="first_name">الاسم الأول</label>
+                                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="الرجاء إدخال اسمك الأول">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="last_name">الاسم ألأخير</label>
+                                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="الرجاء إدخال إسم العائلة">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="gender">الجنس</label>
+                                    <select class="form-control" id="gender" name="gender" data-plugin="select2" style="padding-bottom: 1px">
+                                        <option value="">الجنس</option>
+                                        {% for gender in genders %}
+                                            <option value="{{ gender.0 }}">{{ gender.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="birthdate">تاريخ الميلاد</label>
+                                    <input type="text" id="birthdate" name="profile.birthdate" class="form-control" data-plugin="flatpickr" data-mode="single"  placeholder="1995-3-14">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات العنوان</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                             <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="country">الدولة</label>
+                                    <input type="text" readonly class="form-control" value="المملكة العربية السعودية">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="city">المدينة</label>
+                                    <select class="form-control" id="profile.city" name="profile.city" data-plugin="select2" style="padding-bottom: 1px">
+                                        <option value="">المدينة</option>
+                                         {% for city in cities %}
+                                            <option value="{{ city.slug }}">{{ city.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات المستخدم</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="email">البريد الإلكتروني</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="test@example.com">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="phonenumber">رقم الهاتف</label>
+                                    <input type="tel" class="form-control phone-input">
+                                    <input type="hidden" id="phonenumber" name="phonenumber" class="form-control phone-number-hidden">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="password1">كلمة المرور</label>
+                                    <input type="password" id="password1" name="password1" class="form-control" placeholder="الرجاء إدخال كلمة المرور">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="password2">تأكيد كلمة المرور</label>
+                                    <input type="password" name="password2" id="password2" class="form-control" placeholder="الرجاء إدخال تأكيد كلمة المرور">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button id="btn-create-object-redirect" type="button" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:customer_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                إنشاء عميل
+                            </button>
+                            <button id="btn-create-object" type="button" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                إنشاء عميل وإضافة اخر
+                            </button>
+                            <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:customer_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+
+{% endblock %}
+
+{% block js %}
+    <!-- Datatables JS -->
+    <script src="{% static 'care/assets/js/pages/customer.init.js' %}"></script>
+{% endblock %}

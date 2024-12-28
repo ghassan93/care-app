@@ -1,0 +1,767 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-14 19:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: adminapp/models.py:27 adminapp/models.py:64 authapp/serializers.py:268
+#: authapp/serializers.py:354 vendorapp/serializers.py:42
+msgid "المدينة"
+msgstr "city"
+
+#: adminapp/models.py:30
+msgid "إسم المدينة موجود مسبقاً"
+msgstr "City name already exists"
+
+#: adminapp/models.py:34
+msgid "الكود"
+msgstr "Code"
+
+#: adminapp/models.py:37
+msgid "الكود موجود مسبقاً"
+msgstr "The code already exists"
+
+#: adminapp/models.py:41 authapp/models.py:55 vendorapp/models.py:206
+#: vendorapp/models.py:461
+msgid "الرابط"
+msgstr "URL"
+
+#: adminapp/models.py:53 adminapp/models.py:115 adminapp/models.py:168
+#: authapp/models.py:330 vendorapp/models.py:91 vendorapp/models.py:120
+#: vendorapp/models.py:339 vendorapp/models.py:393 vendorapp/models.py:518
+#: vendorapp/models.py:726 vendorapp/models.py:796 vendorapp/models.py:864
+#: vendorapp/models.py:936 vendorapp/models.py:1039
+msgid "تاريخ الإضافة"
+msgstr "Created date"
+
+#: adminapp/models.py:58 adminapp/models.py:120 adminapp/models.py:172
+#: authapp/models.py:92 authapp/models.py:335 vendorapp/models.py:96
+#: vendorapp/models.py:125 vendorapp/models.py:344 vendorapp/models.py:398
+#: vendorapp/models.py:523 vendorapp/models.py:731 vendorapp/models.py:801
+#: vendorapp/models.py:869 vendorapp/models.py:941 vendorapp/models.py:1044
+msgid "تاريخ التعديل"
+msgstr "Updated date"
+
+#: adminapp/models.py:65
+msgid "المدن"
+msgstr "Cities"
+
+#: adminapp/models.py:81
+msgid "رقم المنزل"
+msgstr "House number"
+
+#: adminapp/models.py:82
+msgid "رقم العمل"
+msgstr "Work number"
+
+#: adminapp/models.py:83 adminapp/models.py:128 authapp/forms.py:337
+#: authapp/models.py:71
+msgid "رقم الهاتف"
+msgstr "Phone number"
+
+#: adminapp/models.py:84
+msgid "رقم الفاكس"
+msgstr "Fax number"
+
+#: adminapp/models.py:89
+msgid "نوع الهاتف"
+msgstr "Phone type"
+
+#: adminapp/models.py:105
+msgid "التحقق"
+msgstr "Verification"
+
+#: adminapp/models.py:110
+msgid "أساسي"
+msgstr "Primary"
+
+#: adminapp/models.py:129
+msgid "ارقام الهواتف"
+msgstr "Phones numbers"
+
+#: adminapp/models.py:145
+msgid "صورة الملف الشخصي"
+msgstr ""
+
+#: adminapp/models.py:146 authapp/models.py:228
+msgid "صورة الغلاف"
+msgstr "Profile picture"
+
+#: adminapp/models.py:147 vendorapp/models.py:629 vendorapp/models.py:719
+msgid "صورة العرض"
+msgstr "Display picture"
+
+#: adminapp/models.py:150
+msgid "نوع الصورة"
+msgstr "Picture type"
+
+#: adminapp/models.py:180
+msgid "الصورة"
+msgstr "Picture"
+
+#: adminapp/models.py:181
+msgid "الصور"
+msgstr "Pictures"
+
+#: authapp/forms.py:26 authapp/models.py:45 authapp/serializers.py:33
+msgid "إسم المستخدم"
+msgstr "Username"
+
+#: authapp/forms.py:32 authapp/serializers.py:40 authapp/serializers.py:298
+msgid "كلمة المرور"
+msgstr "Password"
+
+#: authapp/forms.py:39 authapp/forms.py:135 authapp/models.py:65
+#: authapp/serializers.py:52 authapp/serializers.py:98
+#: authapp/serializers.py:138 authapp/serializers.py:184
+#: authapp/serializers.py:408 authapp/serializers.py:448
+msgid "نوع المستخدم"
+msgstr "User type"
+
+#: authapp/forms.py:43 authapp/serializers.py:47
+msgid "تذكرني"
+msgstr "Remember"
+
+#: authapp/forms.py:123 authapp/forms.py:287 authapp/forms.py:292
+#: authapp/models.py:38 authapp/serializers.py:95 authapp/serializers.py:135
+#: authapp/serializers.py:181 authapp/serializers.py:405
+#: authapp/serializers.py:445
+msgid "البريد الإلكتروني"
+msgstr "E-mail"
+
+#: authapp/forms.py:128 utils/fields.py:46
+msgid "عنوان البريد الإلكتروني"
+msgstr "E-mail"
+
+#: authapp/forms.py:164 authapp/serializers.py:143 authapp/serializers.py:189
+#: authapp/serializers.py:453
+msgid "رمز التحقق"
+msgstr "Verification code"
+
+#: authapp/forms.py:333
+msgid "الاسم الأول"
+msgstr "First name"
+
+#: authapp/forms.py:335
+msgid "الاسم ألأحير"
+msgstr "Last name"
+
+#: authapp/forms.py:379 authapp/serializers.py:580
+msgid "رمز ألتوكن الخاص بالمستخدم"
+msgstr "User's token"
+
+#: authapp/models.py:33 vendorapp/models.py:382
+msgid "مدير"
+msgstr "Admin"
+
+#: authapp/models.py:34
+msgid "بائع"
+msgstr "Vendor"
+
+#: authapp/models.py:35
+msgid "عميل"
+msgstr "Customer"
+
+#: authapp/models.py:41 utils/constants.py:16
+msgid "البريد الإلكتروني موجود مسبقا."
+msgstr "E-mail already exists."
+
+#: authapp/models.py:48
+msgid ""
+"مطلوب. 150 حرفًا أو أقل. المسموح كتابة أحرف اوأرقام او @ /. / + / - / _ فقط."
+msgstr "required. 150 characters or less. It is allowed to write letters or numbers or @ /. / + / - / _ only."
+
+#: authapp/models.py:50
+msgid "اسم المستخدم موجود مسبقا."
+msgstr "Username already exists."
+
+#: authapp/models.py:73 utils/constants.py:11
+msgid "رقم الهاتف موجود مسبقا."
+msgstr "The phone number already exists."
+
+#: authapp/models.py:77
+msgid "تاريخ تفعيل البريد الإلكتروني"
+msgstr "Email activation date"
+
+#: authapp/models.py:82
+msgid "تاريخ تفعيل الهاتف"
+msgstr "Phone activation date"
+
+#: authapp/models.py:87
+msgid "السماح بالإشعارات"
+msgstr "Allow notifications"
+
+#: authapp/models.py:100 authapp/models.py:280
+msgid "المستخدم"
+msgstr "User"
+
+#: authapp/models.py:101
+msgid "المستخدمين"
+msgstr "Userd"
+
+#: authapp/models.py:202
+msgid "ذكر"
+msgstr "Male"
+
+#: authapp/models.py:203
+msgid "انثى"
+msgstr "Female"
+
+#: authapp/models.py:206
+msgid "الجنس"
+msgstr "Gender"
+
+#: authapp/models.py:213
+msgid "تاريخ الميلاد"
+msgstr "Birthdate"
+
+#: authapp/models.py:219
+msgid "صورة المستخدم"
+msgstr "User picture"
+
+#: authapp/models.py:237
+msgid "ملخص"
+msgstr "Summery"
+
+#: authapp/models.py:242
+msgid "نوع التاريخ"
+msgstr "Timezone"
+
+#: authapp/models.py:249 vendorapp/models.py:243
+msgid "الموقع"
+msgstr "Location"
+
+#: authapp/models.py:256 vendorapp/models.py:250
+msgid "خط العرض"
+msgstr "Latitude"
+
+#: authapp/models.py:264 vendorapp/models.py:258
+msgid "خط الطول"
+msgstr "Longitude"
+
+#: authapp/models.py:287 authapp/models.py:288
+msgid "الملف الشخصي"
+msgstr "Profile"
+
+#: authapp/models.py:323
+msgid "توكن المستلم"
+msgstr "Receiver token"
+
+#: authapp/models.py:327
+msgid "مفعل"
+msgstr "Is active"
+
+#: authapp/models.py:343 authapp/models.py:344
+msgid "كود الجوال"
+msgstr "Exponent push token"
+
+#: authapp/serializers.py:195 authapp/serializers.py:229
+msgid "كلمة المرور الجديدة"
+msgstr "New password"
+
+#: authapp/serializers.py:197
+msgid "تاكيد كلمة المرور الجديدة"
+msgstr "Confirm new password"
+
+#: authapp/serializers.py:228
+msgid "كلمة المرور الحالية"
+msgstr "Current password"
+
+#: authapp/serializers.py:230
+msgid "تأكيد كلمة المرور الجديدة"
+msgstr "Confirm new password"
+
+#: authapp/serializers.py:300
+msgid "تأكيد كلمة المرور"
+msgstr "Confirm new password"
+
+#: authapp/serializers.py:487
+msgid "البريد الإلكتروني الجديد"
+msgstr "New E-mail"
+
+#: authapp/views.py:66
+msgid "رائع! تم إرسال تعليمات استعادة كلمة المرور إلى بريدك الإلكتروني."
+msgstr "Password recovery instructions have been sent to your email."
+
+#: authapp/views.py:76
+msgid "تم استعادة كلمة المرور الخاصة بحسابك."
+msgstr "Your account password has been restored."
+
+#: authapp/views.py:93 authapp/views.py:132
+msgid "رمز التحقق المدخل صحيح."
+msgstr "The verification code entered is valid."
+
+#: authapp/views.py:107
+msgid "تم بنجاح إرسال رسالة لتفعيل البريد الإلكتروني."
+msgstr "An activation email has been sent successfully"
+
+#: authapp/views.py:114
+msgid "تم تفعيل البريد الإلكتروني بنجاح."
+msgstr "The email has been activated successfully."
+
+#: authapp/views.py:234 authapp/views.py:239 authapp/views.py:244
+#: authapp/views.py:249
+msgid "تمت العملية بنجاح"
+msgstr "operation accomplished successfully"
+
+#: authapp/views.py:256
+msgid "تمت إضافة الرمز بنجاح"
+msgstr "Code added successfully"
+
+#: project/settings.py:214
+msgid "العربية"
+msgstr "Arabic"
+
+#: project/settings.py:215
+msgid "English"
+msgstr "الإنجليزية"
+
+#: templates/care/authapp/email/auth-email-confirmation-signup-subject.txt:3
+msgid "تم تسجيلك من خلال نظام كير"
+msgstr "You have been registered through the Care system"
+
+#: templates/care/authapp/email/auth-password-reset-key-subject.txt:3
+msgid "نظام كير | إستعادة كلمة المرور"
+msgstr "Care System | Restore password"
+
+#: utils/constants.py:6
+msgid "اسم المستخدم و / أو كلمة المرور التي حددتها غير صحيحة."
+msgstr "The username and/or password you specified is incorrect."
+
+#: utils/constants.py:21
+msgid "البريد الإلكتروني غير مرتبط بحساب."
+msgstr "The email is not associated with an account."
+
+#: utils/constants.py:26
+msgid "الرمز المدخل غير صحيح."
+msgstr "The entered code is incorrect."
+
+#: utils/constants.py:31
+msgid "البريد الإلكتروني قد تم تفعيله مسبقا.ً"
+msgstr "The email has already been activated."
+
+#: utils/constants.py:36
+msgid ""
+"الصيغة المدخلة غير صحيحة، الرجاء إدخال صيغة صحيحة ExponentPushToken[token]."
+msgstr "The format entered is not valid, please enter a valid format ExponentPushToken[token]."
+
+#: utils/constants.py:41
+msgid "الرجاء ادخل قيمة صحيحة للتوكن."
+msgstr "Please enter a valid value for the token."
+
+#: utils/constants.py:46
+msgid ""
+"الرجاء ادخل وقت صالح للخدمة، قم بتحديد عدد ساعات ودقائق الخدمة شكل صحيح."
+msgstr "Please enter a valid service time, specify the number of service hours and minutes correctly."
+
+#: utils/constants.py:51
+msgid "إسم الخدمة قم تم إضافتها مسبقا.ً"
+msgstr "The name of the service has already been added."
+
+#: utils/constants.py:56
+msgid "إسم الموظف قم تم إضافته مسبقاً."
+msgstr "The employee's name has already been added."
+
+#: utils/constants.py:61
+msgid "إسم البنك قم تم إضافته مسبقا.ً"
+msgstr "The name of the bank has already been added."
+
+#: utils/constants.py:66
+msgid "يجب إدخال قيمة كل من time from و .time to"
+msgstr "You must enter the value of both time from and .time to"
+
+#: utils/constants.py:71
+msgid "صيغة الوقت المدخل غير صحيحة."
+msgstr "The time format entered is incorrect."
+
+#: utils/constants.py:76
+msgid "يجب ان يكون التاريخ المدخل اكبر او يساوي التاريخ الحالي."
+msgstr "The date entered must be greater or equal to the current date."
+
+#: utils/constants.py:81
+msgid "يجب ان يكون وقت العمل مناسب مع وقت الخدمة ومضاعفته."
+msgstr "The working time must be suitable with the service time and its double."
+
+#: utils/constants.py:86
+msgid "الموظف موجد مسبقا في خدمة أخرى بهذا التوقيت."
+msgstr "The employee is already in another service at this time."
+
+#: utils/constants.py:91
+msgid "الكود المدخل مرتبط بمستخدم اخر."
+msgstr "The entered code is linked to another user."
+
+#: utils/fields.py:79
+#, python-brace-format
+msgid "من المتوقع الحصول على قائمة لكن تم الحصول على \"{input_type}\""
+msgstr "A list is expected but {input_type} was obtained."
+
+#: utils/fields.py:80
+msgid "يجب أن تكون كافة عناصر القائمة من نوع سلسلة."
+msgstr "All menu items must be of type String."
+
+#: utils/mixins.py:63
+msgid "تم إضافة رقم الهاتف بنجاح"
+msgstr "The phone number has been added successfully"
+
+#: utils/mixins.py:89
+msgid "تم إضافة الصورة بنجاح"
+msgstr ""
+
+#: utils/template.py:10
+msgid "كير"
+msgstr "Care"
+
+#: utils/time2word.py:10
+msgid "دقيقة"
+msgstr "One minute"
+
+#: utils/time2word.py:10
+msgid "نص ساعة"
+msgstr "Half an hour"
+
+#: utils/time2word.py:10
+msgid "ساعة"
+msgstr "Hour"
+
+#: utils/time2word.py:10
+msgid "ساعتين"
+msgstr "Two hours"
+
+#: utils/time2word.py:10
+msgid "ساعات"
+msgstr "Hours"
+
+#: utils/time2word.py:54
+msgid "و"
+msgstr "and"
+
+#: utils/validators.py:12
+msgid ""
+"عذرًا ، يجب أن تتضمن أسماء المستخدمين المكونة من 6 أحرف أو أكثر حرفًا أبجديًا "
+"واحدًا (a-z) او أرقام او الرموز $ #"
+msgstr "Sorry, usernames of 6 or more characters must include one alphanumeric character (a-z), digits, or $# symbols."
+
+#: utils/validators.py:39
+#, python-brace-format
+msgid "يجب إدخال قيمة صحيحة الى هذه الحقول {field_names}."
+msgstr "A valid value must be entered for these {field_names} fields."
+
+#: utils/validators.py:40
+msgid "هذا الحقل مطلوب"
+msgstr "This field is required"
+
+#: vendorapp/models.py:43 vendorapp/models.py:609
+msgid "العناية بالجمال"
+msgstr "Self-Care"
+
+#: vendorapp/models.py:44
+msgid "العناية بالسيارة"
+msgstr "Car-care"
+
+#: vendorapp/models.py:61 vendorapp/models.py:102 vendorapp/models.py:288
+msgid "التقييم"
+msgstr "Rate"
+
+#: vendorapp/models.py:70
+msgid "محتوى التعليق"
+msgstr "Comment content"
+
+#: vendorapp/models.py:103
+msgid "التقييمات"
+msgstr "Rates"
+
+#: vendorapp/models.py:112
+msgid "نوع الفئة"
+msgstr "Category type"
+
+#: vendorapp/models.py:133
+msgid "الفئة"
+msgstr "Category"
+
+#: vendorapp/models.py:134
+msgid "الفئات"
+msgstr "Categories"
+
+#: vendorapp/models.py:155
+msgid "Tagged Item"
+msgstr "Tagged Item"
+
+#: vendorapp/models.py:156
+msgid "Tagged Items"
+msgstr "Tagged Items"
+
+#: vendorapp/models.py:173
+msgid "المنزل"
+msgstr "Home"
+
+#: vendorapp/models.py:174
+msgid "المحل"
+msgstr "Shop"
+
+#: vendorapp/models.py:175
+msgid "كليهما"
+msgstr "All"
+
+#: vendorapp/models.py:181
+msgid "ذكور"
+msgstr "Males"
+
+#: vendorapp/models.py:182
+msgid "إناث"
+msgstr "Females"
+
+#: vendorapp/models.py:183
+msgid "الكل"
+msgstr "All"
+
+#: vendorapp/models.py:189 vendorapp/models.py:330 vendorapp/models.py:509
+msgid "متاح"
+msgstr "Open"
+
+#: vendorapp/models.py:190
+msgid "مغلق"
+msgstr "Close"
+
+#: vendorapp/models.py:201
+msgid "الاسم التجاري"
+msgstr "Business name"
+
+#: vendorapp/models.py:216
+msgid "نوع البائع"
+msgstr "Vendor type"
+
+#: vendorapp/models.py:222
+msgid "محل البيع"
+msgstr "Place"
+
+#: vendorapp/models.py:236
+msgid "الحي"
+msgstr "Street"
+
+#: vendorapp/models.py:266 vendorapp/models.py:782
+msgid "وقت بداية الدوام"
+msgstr "Opening time"
+
+#: vendorapp/models.py:271 vendorapp/models.py:786
+msgid "وقت نهاية الدوام"
+msgstr "End time"
+
+#: vendorapp/models.py:298
+msgid "رقم السجل التجاري"
+msgstr "Commercial Registration No"
+
+#: vendorapp/models.py:303
+msgid "ملف السجل التجاري"
+msgstr "Commercial Registration file"
+
+#: vendorapp/models.py:311
+msgid "مسموح لكل من"
+msgstr "Allowed for each"
+
+#: vendorapp/models.py:318
+msgid "عنوان موقع الويب"
+msgstr "Website address"
+
+#: vendorapp/models.py:324
+msgid "وصف البائع"
+msgstr "Vendor Description"
+
+#: vendorapp/models.py:333 vendorapp/models.py:512
+msgid ""
+"This field is used to add the ability for the managerto block this vendor by "
+"changing the value from true to false"
+msgstr "This field is used to add the ability for the manager to block this vendor by changing the value from true to false"
+
+#: vendorapp/models.py:352 vendorapp/models.py:981
+msgid "البائع"
+msgstr "Vendor"
+
+#: vendorapp/models.py:353
+msgid "البائعين"
+msgstr "Vendors"
+
+#: vendorapp/models.py:404 vendorapp/models.py:405
+msgid "المستخدمين للبائعين"
+msgstr "Vendor users"
+
+#: vendorapp/models.py:441 vendorapp/models.py:442
+msgid "المبيعات"
+msgstr "Sales"
+
+#: vendorapp/models.py:456
+msgid "إسم الخدمة"
+msgstr "Service name"
+
+#: vendorapp/models.py:475
+msgid "السعر"
+msgstr "Price"
+
+#: vendorapp/models.py:481 vendorapp/models.py:992
+msgid "قيمة التخفيض"
+msgstr "Discount"
+
+#: vendorapp/models.py:492
+msgid "قيمة الضريبة"
+msgstr "Tax"
+
+#: vendorapp/models.py:503
+msgid "الوصف"
+msgstr "Description"
+
+#: vendorapp/models.py:618
+msgid "أجمالي الخدمة بالدقائق"
+msgstr "Total service in minutes"
+
+#: vendorapp/models.py:623
+msgid "نوع الخدمة"
+msgstr "Service type"
+
+#: vendorapp/models.py:639
+msgid "الخدمة"
+msgstr "Service"
+
+#: vendorapp/models.py:640
+msgid "الخدمات"
+msgstr "Services"
+
+#: vendorapp/models.py:679
+msgid "الماركة"
+msgstr "Brand"
+
+#: vendorapp/models.py:682
+msgid "الوزن"
+msgstr "Wight"
+
+#: vendorapp/models.py:687
+msgid "التخصص"
+msgstr "Specification"
+
+#: vendorapp/models.py:698
+msgid "المنتج"
+msgstr "Product"
+
+#: vendorapp/models.py:699
+msgid "المنتجات"
+msgstr "Products"
+
+#: vendorapp/models.py:714
+msgid "إسم الموظف"
+msgstr "Employee name"
+
+#: vendorapp/models.py:745
+msgid "الموظف"
+msgstr "Employee"
+
+#: vendorapp/models.py:746
+msgid "الموظفين"
+msgstr "Employees"
+
+#: vendorapp/models.py:778
+msgid "تاريخ يوم الدوام"
+msgstr "working day date"
+
+#: vendorapp/models.py:790
+msgid "وصف الدوام"
+msgstr "Description of the time"
+
+#: vendorapp/models.py:809 vendorapp/models.py:810
+msgid "تفاصيل الدوام"
+msgstr "Working hours details"
+
+#: vendorapp/models.py:844
+msgid "إسم حساب البنك"
+msgstr "Bank account name"
+
+#: vendorapp/models.py:849
+msgid "رقم الحساب البنكي"
+msgstr "Bank account number"
+
+#: vendorapp/models.py:854
+msgid "رقم الفرع"
+msgstr "Branch number"
+
+#: vendorapp/models.py:859
+msgid "رقم الحساب المصرفي الدولي آيبان"
+msgstr "IBAN International Bank Account Number"
+
+#: vendorapp/models.py:878 vendorapp/models.py:879
+msgid "الحساب البنكي"
+msgstr "Bank account"
+
+#: vendorapp/models.py:894
+msgid "في الانتظار"
+msgstr "Pending"
+
+#: vendorapp/models.py:895
+msgid "إلغاء"
+msgstr "Cancel"
+
+#: vendorapp/models.py:896
+msgid "تم الدفع"
+msgstr "Arrival"
+
+#: vendorapp/models.py:911
+msgid "المبلغ المطلوب"
+msgstr "Amount"
+
+#: vendorapp/models.py:915
+msgid "حالة الطلب"
+msgstr "Status"
+
+#: vendorapp/models.py:922
+msgid "سند القبض"
+msgstr "Receipt Voucher File"
+
+#: vendorapp/models.py:930
+msgid "ملاحظات"
+msgstr "Notes"
+
+#: vendorapp/models.py:949 vendorapp/models.py:950
+msgid "طلبات العملاء"
+msgstr "Customer requests"
+
+#: vendorapp/models.py:982
+msgid "النظام"
+msgstr "System"
+
+#: vendorapp/models.py:1003
+msgid "كود الخصم"
+msgstr "Offer code"
+
+#: vendorapp/models.py:1008
+msgid "يجب أن  يكون الكود مزيجًا من الأحرف الأبجدية والأرقام"
+msgstr "The code must be a combination of alphabets and numbers"
+
+#: vendorapp/models.py:1016
+msgid "نوع الخصم"
+msgstr "Offer type"
+
+#: vendorapp/models.py:1022
+msgid "عدد الاستخدامات"
+msgstr "Uses"
+
+#: vendorapp/models.py:1029
+msgid "تاريخ الانتهاء"
+msgstr "Expire date"
+
+#: vendorapp/models.py:1032
+msgid "تم التفعيل"
+msgstr "Is active"
+
+#: vendorapp/models.py:1052 vendorapp/models.py:1053
+msgid "أكواد الخصم"
+msgstr "Offers codes"

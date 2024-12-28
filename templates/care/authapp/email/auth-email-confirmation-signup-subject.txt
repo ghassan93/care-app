@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}تم تسجيلك من خلال نظام كير{% endblocktrans %}
+{% endautoescape %}

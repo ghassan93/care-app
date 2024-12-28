@@ -1,0 +1,89 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item active">إدارة بينات اللافتات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات اللافتات</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="button-list">
+                            <button id="bun-object-create" data-url="{% url 'admin:banner_create_view' %}" type="button" class="btn btn-success waves-effect waves-light">
+                                <span class="btn-label d-none d-md-inline-block"><i class="mdi mdi-plus"></i></span>
+                                إضافة لافتة
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="text-lg-right mt-3 mt-lg-0">
+                            <div class="btn-group mb-2">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    الحدث<span class="btn-label d-none d-md-inline-block" style="padding: .3rem .9rem;"><i class="mdi mdi-chevron-down"></i></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button id="delete-checked-object" class="dropdown-item">حذف العناصر المحددة</button>
+                                </div>
+                            </div><!-- /btn-group -->
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-centered nowrap w-100" id="datatable" data-url="{% url 'admin:api:banner-list' %}" data-update-view-url="update/">
+                            {% csrf_token %}
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </th>
+                                <th>عنوان اللافتة</th>
+                                <th>نوع اللافتة</th>
+                                <th>مفعلة</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                                <th style="width: 85px;">حدث</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+{% endblock %}
+
+{% block js %}
+
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/banner.init.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item active">إدارة بينات الطلبات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات الطلبات</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <!-- start page search -->
+    <form action="#" method="get" data-url="{% url 'admin:api:order-list' %}">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات البحث</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="customer">العميل</label>
+                                    <select class="form-control" id="customer" name="customer" style="padding-bottom: 1px"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="vendor">البائع</label>
+                                    <select class="form-control" id="vendor" name="vendor" style="padding-bottom: 1px"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="payment_type">نوع الدفع للطلب</label>
+                                    <select class="form-control" id="payment_type" name="payment_type" data-plugin="select2" style="padding-bottom: 1px">
+                                        <option value="">البحث عبر نوع الدفع للطلب</option>
+                                        {% for payment_type in payments_types %}
+                                            <option value="{{ payment_type.0 }}">{{ payment_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="status">حالة الطلب</label>
+                                    <select class="form-control" id="status" name="status" data-plugin="select2" style="padding-bottom: 1px">
+                                        <option value="">البحث عبر حالة الطلب</option>
+                                        {% for status_type in status_types %}
+                                            <option value="{{ status_type.0 }}">{{ status_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="created_date">تاريخ الإنشاء</label>
+                                    <input type="text" id="created_date" name="created_date__date__range" class="form-control"  data-plugin="flatpickr" data-mode="range" placeholder="البحث من خلال تاريخ الإنشاء">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="updated_date">تاريخ التحديث</label>
+                                    <input type="text" id="updated_date" name="updated_date__date__range" class="form-control" data-plugin="flatpickr" data-mode="range" placeholder="البحث من خلال تاريخ التحديث">
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <button id="filter" type="submit" class="btn btn-primary width-xl waves-effect waves-light">
+                                    بحث
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+    <!-- end page search -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-4">
+                        <div class="text-lg-right mt-3 mt-lg-0">
+                            <div class="button-list">
+                                <button type="button" class="btn btn-success waves-effect waves-light" data-plugin="export-excel">
+                                    <span class="btn-label"><i class="mdi mdi-microsoft-excel"></i></span>تصدير البينات
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-centered nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th>رقم الطلب</th>
+                                <th>إسم العميل</th>
+                                <th>إسم البائع</th>
+                                <th>حالة الطلب</th>
+                                <th>سعر الطلب</th>
+                                <th>نسبة التخفيض</th>
+                                <th>قيمة التخفيض</th>
+                                <th>نسبة الضريبة</th>
+                                <th>قيمة الضريبة</th>
+                                <th>إجمالي الطلب قبل الضريبة</th>
+                                <th>إجمالي الطلب بعد الضريبة</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                                <th style="width: 85px;">حدث</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+{% endblock %}
+
+{% block js %}
+
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/order.init.js' %}"></script>
+
+{% endblock %}

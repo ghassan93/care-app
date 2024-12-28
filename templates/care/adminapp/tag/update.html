@@ -1,0 +1,102 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:tag_view' %}">إدارة بينات الفئات</a></li>
+                        <li class="breadcrumb-item active">تعديل بينات الفئة</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">({{ object.name }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <form data-url="{% url 'adminapp:api:tag-detail' object.slug %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات الفئة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="name">إسم الفئة</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="الرجاء إدخال الفئة" value="{{ object.name }}">
+                                </div>
+                            </div>
+                             <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="tag_type">نوع الفئة</label>
+                                    <select id="tag_type" name="tag_type" class="mb-0" data-plugin="select2" data-default-value="{{ object.tag_type }}">
+                                        <option value="">نوع الفئة</option>
+                                        {% for tag_type in vendors_types %}
+                                        <option value="{{ tag_type.0 }}">{{ tag_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button type="button" id="btn-update-object-redirect"
+                                    class="btn btn-success waves-effect waves-light m-1"
+                                    data-url="{% url 'admin:tag_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حفظ البينات و مغادرة الصفحة
+                            </button>
+                            <button type="button" id="btn-update-object"
+                                    class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                حفظ البينات والبقاء في الصفحة
+                            </button>
+                            <button type="button" id="cancel" data-url="{% url 'admin:tag_view' %}"
+                                    class="btn btn-warning  waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+    </form>
+
+
+{% endblock %}
+
+{% block js %}
+
+    <!-- Initialize JS -->
+    <script src="{% static 'care/assets/js/pages/tag.init.js' %}"></script>
+{% endblock %}

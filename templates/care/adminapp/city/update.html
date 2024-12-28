@@ -1,0 +1,119 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:city_view' %}">إدارة بينات المدن</a></li>
+                        <li class="breadcrumb-item active">تعديل بينات المدينة</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">({{ object.name }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <form data-url="{% url 'adminapp:api:city-detail' object.slug %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات المدينة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="name">إسم المدينة</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="الرجاء إدخال المدينة" value="{{ object.name }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="country">الدولة</label>
+                                    <input type="text" id="country" class="form-control" value="المملكة العربية السعودية">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="code">الكود</label>
+                                    <input type="text" id="code" name="code" class="form-control" placeholder="الرجاء إدخال الكود" value="{{ object.code }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button type="button" id="btn-update-object-redirect" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:city_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حفظ البينات و مغادرة الصفحة
+                            </button>
+                            <button type="button" id="btn-update-object" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                حفظ البينات والبقاء في الصفحة
+                            </button>
+                            {% if object.is_active %}
+                            <button type="button" class="btn btn-blue waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:city-disabled' object.slug %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                إلغاء تفعيل المدينة
+                            </button>
+                            {% else %}
+                             <button type="button" class="btn btn-success waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:city-activate' object.slug %}">
+                                 <span class="btn-label d-none d-md-inline-block">
+                                     <i class="fe-check-circle mr-1"></i>
+                                 </span>
+                                 تنشيط المدينة
+                            </button>
+                            {% endif %}
+                             <button type="button" class="btn btn-danger waves-effect waves-light m-1" data-plugin="delete-object" data-url="{% url 'admin:api:city-detail' object.slug %}" data-redirect-url="{% url 'admin:city_view' %}">
+                                    <span class="btn-label d-none d-md-inline-block">
+                                        <i class="fe-check-circle mr-1"></i>
+                                    </span>
+                                    حذف المدينة
+                                </button>
+                             <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:city_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+    </form>
+
+
+{% endblock %}
+
+{% block js %}
+
+    <!-- Initialize JS -->
+    <script src="{% static 'care/assets/js/pages/city.init.js' %}"></script>
+{% endblock %}

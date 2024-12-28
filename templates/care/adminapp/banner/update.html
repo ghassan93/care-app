@@ -1,0 +1,200 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'care/assets/libs/bootstrap-imageupload/css/bootstrap-imageupload.min.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:settings_view' %}">الإعدادات</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:banner_view' %}">إدارة بينات اللافتات</a></li>
+                        <li class="breadcrumb-item active">تعديل بينات اللافتة</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">({{ object.subject }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <form data-url="{% url 'adminapp:api:banner-detail' object.pk %}" autocomplete="off" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات عامة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="subject">عنوان اللافتة</label>
+                                    <input type="text" id="subject" name="subject" class="form-control" placeholder="الرجاء إدخال عنوان اللافتة" value="{{ object.subject }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="banner_type">نوع اللافتة</label>
+                                    <select id="banner_type" name="banner_type" class="mb-0" data-plugin="select2" data-default-value="{{ object.banner_type }}">
+                                        <option value="">الكل</option>
+                                        {% for banner_type in vendors_types %}
+                                            <option value="{{ banner_type.0 }}">{{ banner_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="sort_order">الترتيب</label>
+                                    <input type="number" id="sort_order" name="sort_order" class="form-control" placeholder="الرجاء ترتيب اللافتة" value="{{ object.sort_order }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label for="body">المحتوى</label>
+                                    <textarea id="body" name="body" rows="8" class="form-control">{{ object.body }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات البائعين</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="selector-available mb-3">
+                                    <h2>البائعين</h2>
+                                    <select id="vendors" class="multi-select form-control" size="8" multiple="multiple" name="vendors">
+                                        {% for vendor in vendors %}
+                                            <option value="{{ vendor.id }}" {% if vendor in object.vendors.all %}selected{% endif %}>{{ vendor.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">صورة اللافتة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="banner-image" class="imageupload panel panel-default">
+                                    <div class="panel-heading clearfix">
+                                        <h3 class="panel-title  pull-right ">صورة اللافتة</h3>
+                                        <div class="btn-group pull-left">
+                                            <button type="button" class="btn btn-default active">ملف
+                                            </button>
+                                            <button type="button" class="btn btn-default d-none d-md-block">
+                                                عنوان
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="file-tab panel-body" style="display: block;">
+                                        <label class="btn btn-primary text-white btn-file">
+                                            <span>تحميل صوره</span>
+                                            <!-- The file is stored here. -->
+                                            <input type="file" name="image">
+                                        </label>
+                                        <button type="button" class="btn btn-danger" style="display: none;">
+                                            حذف الصورة
+                                        </button>
+                                    </div>
+                                    <div class="url-tab panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="تحميل صورة من خلال الرابط">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default">إرسال</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-default">حذف الصورة</button>
+                                        <!-- The URL is stored here. -->
+                                        <input type="hidden">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button type="button" id="btn-update-object-redirect"
+                                    class="btn btn-success waves-effect waves-light m-1"
+                                    data-url="{% url 'admin:banner_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حفظ البينات و مغادرة الصفحة
+                            </button>
+                            <button type="button" id="btn-update-object"
+                                    class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                حفظ البينات والبقاء في الصفحة
+                            </button>
+                            <button type="button" id="cancel" data-url="{% url 'admin:banner_view' %}"
+                                    class="btn btn-warning  waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+    </form>
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- third party js -->
+    <script src="{% static 'care/assets/libs/bootstrap-imageupload/js/bootstrap-imageupload.min.js' %}"></script>
+    <!-- third party js ends -->
+
+    <!-- Initialize JS -->
+    <script>
+        $('#banner-image').imageupload({
+             imgSrc: "{% if object.image %}{{ object.image.url }}{% endif %}"
+        });
+    </script>
+    <script src="{% static 'care/assets/js/pages/banner.init.js' %}"></script>
+{% endblock %}

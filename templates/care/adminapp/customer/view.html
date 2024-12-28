@@ -1,0 +1,255 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item active">إدارة بينات العملاء</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات العملاء</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <!-- start page search -->
+    <form action="#" method="get" data-url="{% url 'admin:api:user-list' %}">
+        <input type="hidden" name="role" value="customer">
+        <input type="hidden" name="is_deleted" value="0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات البحث</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="username__contains">معرف العميل</label>
+                                    <input type="text" id="username__contains" name="username__contains" class="form-control" placeholder="البحث من خلال معرف العميل">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="first_name__contains">الاسم الأول للعميل</label>
+                                    <input type="text" id="first_name__contains" name="first_name__contains" class="form-control" placeholder="البحث من خلال الاسم الأول للعميل">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="last_name__contains">الاسم الأخير للعميل</label>
+                                    <input type="text" id="last_name__contains" name="last_name__contains" class="form-control" placeholder="البحث من خلال الاسم الأخير للعميل">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="phonenumber__contains">رقم هاتف العميل</label>
+                                    <input type="tel" id="phonenumber__contains" name="phonenumber__contains" class="form-control" placeholder="البحث من خلال رقم هاتف العميل">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="email__contains">البريد الإلكتروني العميل</label>
+                                    <input type="tel" id="email__contains" name="email__contains" class="form-control" placeholder="البحث من خلال البريد الإلكتروني العميل">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="gender">جنس العميل</label>
+                                    <select class="form-control" id="gender" name="gender" data-plugin="select2" style="padding-bottom: 1px">
+                                        <option value="">البحث عبر جنس العميل</option>
+                                        {% for gender in genders %}
+                                            <option value="{{ gender.0 }}">{{ gender.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="city">مدينة العميل</label>
+                                    <select class="form-control" id="city" name="city" data-plugin="select2" style="padding-bottom: 1px">
+                                        <option value="">البحث عبر مدينة العميل</option>
+                                        {% for city in cities %}
+                                            <option value="{{ city.slug }}">{{ city.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="date_joined">تاريخ الإنشاء</label>
+                                    <input type="text" id="date_joined" name="date_joined__date__range" class="form-control"  data-plugin="flatpickr" data-mode="range" placeholder="البحث من خلال تاريخ الإنشاء">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="updated_date">تاريخ التحديث</label>
+                                    <input type="text" id="updated_date" name="updated_date__date__range" class="form-control" data-plugin="flatpickr" data-mode="range" placeholder="البحث من خلال تاريخ التحديث">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mb-3">
+                                    <label for="last_login">تاريخ اخر تسجيل دخول</label>
+                                    <input type="text" id="last_login" name="last_login__date__range" class="form-control" placeholder="البحث من خلال اخر تسجيل دخول" data-plugin="flatpickr" data-mode="range">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 mt-3">
+                                <button id="filter" type="submit" class="btn btn-primary width-xl waves-effect waves-light">
+                                    بحث
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+    <!-- end page search -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success waves-effect waves-light" data-plugin="redirect-to-page" data-url="{% url 'admin:customer_create_view' %}">
+                                <span class="btn-label d-none d-md-inline-block"><i class="mdi mdi-plus"></i></span>إضافة عميل
+                            </button>
+                             <button type="button" class="btn btn-success waves-effect waves-light" data-plugin="export-excel">
+                                    <span class="btn-label"><i class="mdi mdi-microsoft-excel"></i></span>تصدير البينات
+                             </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="text-lg-right mt-3 mt-lg-0">
+                            <button type="button" class="btn btn-danger waves-effect waves-light" data-toggle="modal"
+                                    data-target="#deleted-users-modal">
+                              <span class="btn-label d-none d-md-inline-block">
+                                  <i class="mdi mdi-trash-can-outline"></i>
+                              </span>
+                                قائمة المحذوفات
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-centered nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th>الاسم الأول</th>
+                                <th>الاسم الأخير</th>
+                                <th>معرف العميل</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>رقم الهاتف</th>
+                                <th>مفعل</th>
+                                <th>المدينة</th>
+                                <th>الجنس</th>
+                                <th>تاريخ الانضمام</th>
+                                <th>تاريخ التعديل</th>
+                                <th>تاريخ اخر دخول</th>
+                                <th style="width: 85px;">حدث</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <!-- deleted customers modal content -->
+    <div id="deleted-users-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deletedUsersModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-full-width">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="deletedUsersModal">قائمة العملاء المحذوفين من النظام</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="#" method="get" class="d-none" data-url="{% url 'admin:api:user-list' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="role" value="customer">
+                                <input type="hidden" name="is_deleted" value="1">
+                                <button id="filter-deleted-users"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="deleted-users-datatable" class="table table-centered nowrap w-100">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 20px;">#</th>
+                                                <th>الاسم الأول</th>
+                                                <th>الاسم الأخير</th>
+                                                <th>معرف العميل</th>
+                                                <th>البريد الإلكتروني</th>
+                                                <th>رقم الهاتف</th>
+                                                <th>مفعل</th>
+                                                <th>المدينة</th>
+                                                <th>الجنس</th>
+                                                <th>تاريخ الانضمام</th>
+                                                <th>تاريخ التعديل</th>
+                                                <th>تاريخ اخر دخول</th>
+                                                <th style="width: 85px;">حدث</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                </div> <!-- end card-body-->
+                            </div> <!-- end card-->
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">اغلاق النافذه</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block js %}
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/customer.init.js' %}"></script>
+{% endblock %}

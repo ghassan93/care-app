@@ -1,0 +1,323 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:order_view' %}">إدارة بيانات الطلبات</a></li>
+                        <li class="breadcrumb-item active">تفاصيل الطلب</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">{{ object.id }}</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-danger border-danger border shadow">
+                            <i class="fe-gift font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h4 class="mt-1">{{ object.id }}</h4>
+                            <p class="text-muted mb-1 text-truncate">معرف الطلب</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-blue border-blue border shadow">
+                            <i class="fe-aperture font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h4 class="mt-1">{{ object.get_payment_type_display }}</h4>
+                            <p class="text-muted mb-1 text-truncate">نوع الدفع</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-warning border-warning border shadow">
+                            <i class="fe-eye font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h4 class="text-dark mt-1">{{ object.get_status_display }}</h4>
+                            <p class="text-muted mb-1 text-truncate">حالة الطلب</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-info border-info border shadow">
+                            <i class="fe-dollar-sign font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-dark mt-1">{{ object.get_total_value_display }}</h3>
+                            <p class="text-muted mb-1 text-truncate">إجمالي الطلب</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="header-title">معلومات عامة</div>
+                    <div class="sub-header"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget white with-padding">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-pk">رقم الطلب</label>
+                                            <input type="text" id="order-pk" readonly class="form-control" value="{{ object.id }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-vendor">إسم البائع</label>
+                                            <input type="text" id="order-vendor" readonly class="form-control" value="{{ object.vendor.name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                     <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-customer">إسم العميل</label>
+                                            <input type="text" id="order-customer" readonly class="form-control" value="{{ object.customer.user.get_full_name }}">
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-status">حالة الطلب</label>
+                                            <input type="text" id="order-status" readonly class="form-control" value="{{ object.get_status_display }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                     <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-created-date">تاريخ الإنشاء</label>
+                                            <input type="text" id="order-created-date" readonly class="form-control" value="{{ object.created_date }}">
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-updated-date">تاريخ التعديل</label>
+                                            <input type="text" id="order-updated-date" readonly class="form-control" value="{{ object.updated_date }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="header-title">معلومات السعر</div>
+                    <div class="sub-header"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget white with-padding">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group mb-3">
+                                            <label for="order-discount-percent-display">نسبة الخصم</label>
+                                            <input type="text" id="order-discount-percent-display" readonly class="form-control" value="{{ object.get_discount_percent_display }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group mb-3">
+                                            <label for="order-discount-value-display">قيمة الخصم</label>
+                                            <input type="text" id="order-discount-value-display" readonly class="form-control" value="{{ object.get_discount_value_display }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group mb-3">
+                                            <label for="order-text-percent-display">نسبة الضريبة</label>
+                                            <input type="text" id="order-text-percent-display" readonly class="form-control" value="{{ object.get_tax_percent_display }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group mb-3">
+                                            <label for="order-text-value-display">قيمة الضريبة</label>
+                                            <input type="text" id="order-text-value-display" readonly class="form-control" value="{{ object.get_tax_value_display }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-price">قيمة الطلب</label>
+                                            <input type="text" id="order-price" class="form-control" readonly value="{{ object.get_price_value_display }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="order-total">إجمالي القيمة</label>
+                                            <input type="text" id="order-total" readonly class="form-control" value="{{ object.get_total_value_display }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-sm-4">
+                                <h4 class="header-title">تفاصيل عناصر الطلب</h4>
+                            </div>
+                        </div>
+                        <table id="order-items-datatable" class="table w-100 nowrap">
+                            <thead>
+                            <tr>
+                            <tr>
+                                <th>إسم الخدمة</th>
+                                <th>نوع الخدمة</th>
+                                <th>إسم الموظف</th>
+                                <th>تاريخ الخدمة</th>
+                                <th>وقت بداية الخدمة</th>
+                                <th>وقت نهاية الخدمة</th>
+                                <th>سعر الخدمة</th>
+                                <th>نسبة الخصم</th>
+                                <th>قيمة الخصم</th>
+                                <th>نسبة الضريبة</th>
+                                <th>قيمة الضريبة</th>
+                                <th>ألإجمالي</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                                <th>الحدث</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            {% for order_item in object.order_item.all %}
+                                <tr>
+                                    <td><a href="{% url 'admin:service_update_view' order_item.sales.services.first.slug %}">{{ order_item.sales.services.first.name }}</a></td>
+                                    <td>{{ order_item.sales.services.first.get_schedule_display }}</td>
+                                    <td>{{ order_item.employee.name }}</td>
+                                    <td>{{ order_item.date }}</td>
+                                    <td>{{ order_item.start }}</td>
+                                    <td>{{ order_item.end }}</td>
+                                    <td>{{ order_item.get_price_value_display }}</td>
+                                    <td>{{ order_item.get_discount_percent_display }}</td>
+                                    <td>{{ order_item.get_discount_value_display }}</td>
+                                    <td>{{ order_item.get_tax_percent_display  }}</td>
+                                    <td>{{ order_item.get_tax_value_display  }}</td>
+                                    <td>{{ order_item.get_total_value_display  }}</td>
+                                    <td>{{ order_item.created_date }}</td>
+                                    <td>{{ order_item.updated_date }}</td>
+                                    <td><a href="{% url 'admin:service_update_view' order_item.sales.services.first.slug %}" class="action-icon"><i class="mdi mdi-18px mdi-square-edit-outline"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div>
+            <!-- end col-->
+        </div>
+    <!-- end row-->
+
+    <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-sm-4">
+                                <h4 class="header-title">تفاصيل الفواتير</h4>
+                            </div>
+                        </div>
+                        <table id="invoices-datatable" class="table w-100 nowrap">
+                            <thead>
+                            <tr>
+                            <tr>
+                                <th>رقم الفاتورة</th>
+                                <th>حالة الفاتورة</th>
+                                <th>أجمالي الفاتورة</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                                <th>الحدث</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            {% for invoice in object.invoices.all %}
+                                <tr>
+                                    <td><a href="{% url 'admin:invoice_detail_view' invoice.id %}">{{ invoice.id }}</a></td>
+                                    <td>{{ invoice.get_status_display }}</td>
+                                    <td>{{ invoice.get_total_display }}</td>
+                                    <td>{{ invoice.created_date }}</td>
+                                    <td>{{ invoice.updated_date }}</td>
+                                    <td><a href="{% url 'admin:invoice_detail_view' invoice.id %}" class="action-icon"><i class="mdi mdi-18px mdi-square-edit-outline"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div>
+            <!-- end col-->
+        </div>
+    <!-- end row-->
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/order.init.js' %}"></script>
+{% endblock %}

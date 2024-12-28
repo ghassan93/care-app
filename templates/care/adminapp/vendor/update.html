@@ -1,0 +1,338 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:vendor_view' %}">إدارة بينات البائعين</a>
+                        </li>
+                        <li class="breadcrumb-item active">تعديل بينات البائع</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">({{ object.name }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box bg-primary">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <div class="avatar-lg">
+                            <img src="{{ object.get_users.first.profile.get_image_url }}" class="img-fluid rounded-circle img-thumbnail" alt="user-img">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5 class="mb-1 mt-2 text-white font-16">{{ object.name }}</h5>
+                        <p class="mb-2 text-white-50">البائع</p>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-danger border-danger border shadow">
+                            <i class="fe-command font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="mt-1">{{ object.get_vendor_type_display }}</h3>
+                            <p class="text-muted mb-1 text-truncate">نوع البائع</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-warning border-warning border shadow">
+                            <i class="fe-eye font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-dark mt-1">{{ object.get_status_display }}</h3>
+                            <p class="text-muted mb-1 text-truncate">حالة البائع</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="widget-rounded-circle card-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="avatar-lg rounded-circle bg-info border-info border shadow">
+                            <i class="fe-airplay font-22 avatar-title text-white"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right">
+                            <h3 class="text-dark mt-1">{{ object.rate }}</h3>
+                            <p class="text-muted mb-1 text-truncate">التقييم</p>
+                        </div>
+                    </div>
+                </div> <!-- end row-->
+            </div> <!-- end widget-rounded-circle-->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <form data-url="{% url 'adminapp:api:vendor-detail' object.slug %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات عامة</div>
+                        <div class="sub-header"></div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="name">إسم البائع</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="الرجاء إدخال إسم البائع" value="{{ object.name }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="name">رقم السجل التجاري</label>
+                                <input type="text" id="cr_no" name="cr_no" class="form-control" placeholder="الرجاء إدخال رقم السجل التجاري" value="{{ object.cr_no }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="sort_order">ترتيب البائع</label>
+                                    <input type="text" id="sort_order" name="sort_order" class="form-control" value="{{ object.sort_order }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="date_joined">تاريخ الانضمام</label>
+                                    <input type="text" readonly class="form-control" value="{{ object.created_date|date:"Y-m-d" }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="last_login">تاريخ اخر تسجيل دخول</label>
+                                    <input type="text" readonly class="form-control" value="{{ object.updated_date|date:"Y-m-d" }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات البائع</div>
+                        <div class="sub-header"></div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="vendor_type">نوع البائع</label>
+                                    <select class="form-control" id="vendor_type" name="vendor_type" data-plugin="select2" data-default-value="{{ object.vendor_type }}" style="padding-bottom: 1px">
+                                        <option value="">نوع البائع</option>
+                                        {% for vendor_type in vendors_types %}
+                                            <option value="{{ vendor_type.0 }}">{{ vendor_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="payment_type">نوع الدفع</label>
+                                    <select class="form-control" id="payment_type" name="payment_type" data-plugin="select2" data-default-value="{{ object.payment_type }}" style="padding-bottom: 1px">
+                                        <option value="">نوع الدفع</option>
+                                        {% for payment_type in payments_types %}
+                                            <option value="{{ payment_type.0 }}">{{ payment_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="gender">موقع العمل</label>
+                                    <select class="form-control" id="place" name="place" data-plugin="select2" data-default-value="{{ object.place }}" style="padding-bottom: 1px">
+                                        <option value="">موقع العمل</option>
+                                        {% for place_type in places_types %}
+                                            <option value="{{ place_type.0 }}">{{ place_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="allowed">مسموح لكل من</label>
+                                    <select class="form-control" id="allowed" name="allowed" data-plugin="select2" data-default-value="{{ object.allowed }}" style="padding-bottom: 1px">
+                                        <option value="">مسموح لكل من</option>
+                                        {% for allowed_type in allowed_types %}
+                                            <option value="{{ allowed_type.0 }}">{{ allowed_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="time_from">بداية الدوام</label>
+                                    <input type="text" id="time_from" name="time_from" class="form-control" placeholder="الرجاء إدخال بداية الدوام" value="{% if object.time_from %}{{ object.time_from|time:"G:i" }}{% endif %}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="time_to">نهاية الدوام</label>
+                                <input type="text" id="time_to" name="time_to" class="form-control" placeholder="الرجاء إدخال نهاية الدوام" value="{% if object.time_to %}{{ object.time_to|time:"G:i" }}{% endif %}">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات العنوان</div>
+                        <div class="sub-header"></div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="country">الدولة</label>
+                                    <input type="text" readonly class="form-control" value="المملكة العربية السعودية">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="city">المدينة</label>
+                                    <select class="form-control" id="city" name="city" data-plugin="select2" data-default-value="{{ object.city.slug }}" style="padding-bottom: 1px">
+                                        <option value="">المدينة</option>
+                                        {% for city in cities %}
+                                            <option value="{{ city.slug }}">{{ city.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group mb-3">
+                                    <label for="street">عنوان الشارع</label>
+                                    <input type="text" id="street" name="street" class="form-control" placeholder="الرجاء إدخال عنوان الشارع" value="{% if object.street %}{{ object.street }}{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">وصف البائع</div>
+                        <div class="sub-header"></div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <textarea id="description" name="description" rows="6" class="form-control">{% if object.description %}{{ object.description }}{% endif %}</textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button type="button" id="btn-update-object-redirect" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:vendor_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حفظ البينات و مغادرة الصفحة
+                            </button>
+                            <button type="button" id="btn-update-object" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                حفظ البينات والبقاء في الصفحة
+                            </button>
+                            {% if object.is_active %}
+                                <button type="button" class="btn btn-blue waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:vendor-disabled' object.slug %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                    حظر الحساب
+                                </button>
+                            {% else %}
+                                <button type="button" class="btn btn-success waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:vendor-activate' object.slug %}">
+                                 <span class="btn-label d-none d-md-inline-block">
+                                     <i class="fe-check-circle mr-1"></i>
+                                 </span>
+                                    تنشيط الحساب
+                                </button>
+                            {% endif %}
+                            <button type="button" class="btn btn-danger waves-effect waves-light m-1" data-plugin="delete-object" data-url="{% url 'admin:api:vendor-detail' object.slug %}" data-redirect-url="{% url 'admin:vendor_view' %}">
+                                    <span class="btn-label d-none d-md-inline-block">
+                                        <i class="fe-check-circle mr-1"></i>
+                                    </span>
+                                حذف الحساب
+                            </button>
+                            <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:vendor_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+    </form>
+
+{% endblock %}
+
+{% block js %}
+    <!-- Datatables JS -->
+    <script src="{% static 'care/assets/js/pages/vendor.init.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static vendor %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:offer_view' %}">إدارة بينات الخصومات</a></li>
+                        <li class="breadcrumb-item active">إضافة خصومات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إضافة خصومات</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    <form action="#" method="post" data-url="{% url 'admin:api:offer-list' %}" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات الكود</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="code">رمز الكود</label>
+                                    <input type="text" id="code" name="code" class="form-control" placeholder="الرجاء إدخال الكود">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="discount">قيمة الخصم</label>
+                                    <input type="text" id="discount" name="discount" class="form-control" placeholder="الرجاء إدخال قيمة الخصم">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="uses">عدد الاستخدامات</label>
+                                    <input type="text" id="uses" name="uses" class="form-control" placeholder="الرجاء إدخال عدد الاستخدامات">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="expire_date">تاريخ الانتهاء</label>
+                                    <input type="text" id="expire_date" name="expire_date" data-plugin="flatpickr" data-max-date="" data-min-date="today"  class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button id="btn-create-object-redirect" type="button" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:offer_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                إنشاء كود
+                            </button>
+                            <button id="btn-create-object" type="button" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                إنشاء كود وإضافة اخر
+                            </button>
+                            <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:offer_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+
+{% endblock %}
+
+{% block js %}
+
+    <!-- Initialize JS -->
+    <script src="{% static 'care/assets/js/pages/offer.init.js' %}"></script>
+{% endblock %}

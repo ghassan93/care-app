@@ -1,0 +1,345 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'admin:manager_view' %}">إدارة بينات المدراء</a></li>
+                        <li class="breadcrumb-item active">تعديل بينات المدير</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">({{ object.get_full_name }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <form data-url="{% url 'adminapp:api:user-detail' object.slug %}" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات عامة</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="first_name">الاسم الأول</label>
+                                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="الرجاء إدخال اسمك الأول" value="{{ object.first_name }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="last_name">الاسم ألأخير</label>
+                                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="الرجاء إدخال إسم العائلة" value="{{ object.last_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="gender">الجنس</label>
+                                    <select class="form-control" id="gender" name="gender" data-plugin="select2" data-default-value="{{ object.profile.gender }}" style="padding-bottom: 1px">
+                                        <option value="">الجنس</option>
+                                        {% for gender in genders %}
+                                            <option value="{{ gender.0 }}">{{ gender.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="birthdate">تاريخ الميلاد</label>
+                                    <input type="text" id="birthdate" name="profile.birthdate" class="form-control data-picker" data-plugin="flatpickr" data-mode="single" value="{{ object.profile.birthdate|date:"Y-m-d" }}" placeholder="1995-3-14">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="date_joined">تاريخ الانضمام</label>
+                                    <input type="text" readonly class="form-control" value="{{ object.date_joined|date:"Y-m-d" }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="last_login">تاريخ اخر تسجيل دخول</label>
+                                    <input type="text" readonly class="form-control" value="{{ object.last_login|date:"Y-m-d" }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات العنوان</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                             <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="country">الدولة</label>
+                                    <input type="text" readonly class="form-control" value="المملكة العربية السعودية">
+                                </div>
+                            </div>
+                             <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="city">المدينة</label>
+                                    <select class="form-control" id="profile.city" name="profile.city" data-plugin="select2" data-default-value="{{ object.profile.city.slug }}" style="padding-bottom: 1px">
+                                        <option value="">المدينة</option>
+                                         {% for city in cities %}
+                                            <option value="{{ city.slug }}">{{ city.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات المستخدم</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="username">معرف المستخدم</label>
+                                    <input type="text" readonly class="form-control" placeholder="test" value="{{ object.username }}">
+                                    <span class="form-text text-muted"><small>لتعديل إسم المستخدم الرجاء <a href="javascript: void(0);" data-toggle="modal" data-target="#change-username">النقر</a> هنا.</small></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="email">البريد الإلكتروني</label>
+                                    <input type="email" readonly class="form-control" placeholder="test@example.com" value="{{ object.email }}">
+                                    <span class="form-text text-muted"><small>لتعديل البريد الإلكتروني الرجاء <a href="javascript: void(0);" data-toggle="modal" data-target="#change-email">النقر</a> هنا.</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="phonenumber">رقم الهاتف</label>
+                                    <input type="tel" id="phonenumber" name="phonenumber" class="form-control phone-input" value="{{ object.phonenumber.as_e164 }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="password">كلمة المرور</label>
+                                    <input type="password" readonly class="form-control"  placeholder="ادخل كلمة المرور" value="**********">
+                                    <span class="form-text text-muted"><small>إذا اردت تعديل كلمة المرور الرجاء <a href="javascript: void(0);" data-toggle="modal" data-target="#change-password">النقر</a> هنا.</small></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات التفعيل</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="verified_email_at">تاريخ تفعيل البريد الإلكتروني</label>
+                                    <input type="text" readonly class="form-control" value="{% if verified_email_at %}{{ object.verified_email_at|date:"Y-m-d" }}{% else %}الايميل غير مفعل{% endif %}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="verified_phonenumber_at">تاريخ تفعيل الهاتف</label>
+                                    <input type="text" readonly class="form-control" value="{% if verified_email_at %}{{ object.verified_phonenumber_at|date:"Y-m-d" }}{% else %}الهاتف غير مفعل{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+
+        <!-- end row-->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <button type="button" id="btn-update-object-redirect" class="btn btn-success waves-effect waves-light m-1" data-url="{% url 'admin:manager_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حفظ البينات و مغادرة الصفحة
+                            </button>
+                            <button type="button" id="btn-update-object" class="btn btn-info waves-effect waves-light m-1">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-info mr-1"></i>
+                                </span>
+                                حفظ البينات والبقاء في الصفحة
+                            </button>
+                            {% if object.is_verified %}
+                            <button type="button" class="btn btn-blue waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:user-disabled' object.slug %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-check-circle mr-1"></i>
+                                </span>
+                                حظر الحساب
+                            </button>
+                            {% else %}
+                             <button type="button" class="btn btn-success waves-effect waves-light m-1" data-plugin="post-object" data-url="{% url 'admin:api:user-activate' object.slug %}">
+                                 <span class="btn-label d-none d-md-inline-block">
+                                     <i class="fe-check-circle mr-1"></i>
+                                 </span>
+                                 تنشيط الحساب
+                            </button>
+                            {% endif %}
+                             <button type="button" class="btn btn-danger waves-effect waves-light m-1" data-plugin="delete-object" data-url="{% url 'admin:api:user-detail' object.slug %}" data-redirect-url="{% url 'admin:manager_view' %}">
+                                    <span class="btn-label d-none d-md-inline-block">
+                                        <i class="fe-check-circle mr-1"></i>
+                                    </span>
+                                    حذف الحساب
+                                </button>
+                             <button type="button" class="btn btn-warning waves-effect waves-light m-1" data-plugin="redirect-to-page" data-url="{% url 'admin:manager_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="fe-x mr-1"></i>
+                                </span>
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+    </form>
+
+    <!-- start  change email model -->
+    <div id="change-username" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">معلومات إسم المستخدم</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form action="#" method="post" data-url="{% url 'admin:api:user-change-username' object.slug %}">
+                    {% csrf_token %}
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email" class="control-label">إسم المستخدم الجديد</label>
+                                    <input type="text" id="username" name="username" class="form-control" value="{{ object.username }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-change-username" type="button" class="btn btn-info waves-effect">حفظ</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+
+    <!-- start  change email model -->
+    <div id="change-email" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">معلومات البريد الإلكتروني</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form action="#" method="post" data-url="{% url 'admin:api:user-change-email' object.slug %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="manager">
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email" class="control-label">البريد الإلكتروني الجديد</label>
+                                    <input type="email" id="email" name="email" class="form-control" value="{{ object.email }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-change-email" type="button" class="btn btn-info waves-effect">حفظ</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+
+    <!-- start change password model -->
+    <div id="change-password" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">معلومات كلمة المرور</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form action="#" method="post" data-url="{% url 'admin:api:user-change-password' object.slug%}">
+                    {% csrf_token %}
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="password1" class="control-label">كلمة المرور الجديدة</label>
+                                    <input type="password" id="password1" name="password1" class="form-control" placeholder="الرجاء إدخال كلمة المرور.">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="password2" class="control-label">تأكيد كلمة المرور الجديدة</label>
+                                    <input type="password" id="password2" name="password2" class="form-control" placeholder="الرجاء إدخال تأكيد كلمة المرور.">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-change-password" type="button" class="btn btn-info waves-effect">حفظ</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+
+
+{% endblock %}
+
+{% block js %}
+
+    <!-- Initialize JS -->
+    <script src="{% static 'care/assets/js/pages/managers.init.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static notification vendor offer service city gender order invoice i18n %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% get_vendors_types as vendors_types %}
+    {% get_payments_types as payments_types %}
+    {% get_places_types as places_types %}
+    {% get_allowed_types as allowed_types %}
+    {% get_all_cities as cities %}
+    {% get_all_genders as genders %}
+    {% get_status_types as status_types %}
+    {% get_offers_types as offers_types %}
+    {% get_invoices_status as invoices_status %}
+    {% get_invoices_types as invoices_types %}
+    {% get_services_types as services_types %}
+    {% get_services_places as services_places %}
+    {% get_services_schedules as services_schedules %}
+    {% get_hours_choices as hours %}
+    {% get_minutes_choices as minutes %}
+    <meta charset="utf-8"/>
+    <title>نظام كير | {{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="نظام كير لإدارة الخدمات والمنتجات في المملكة العربية السعودية." name="description"/>
+    <meta content="كير" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- plugin css -->
+    {% block css %}{% endblock %}
+    {% include 'care/shared/css.html' %}
+</head>
+
+<body class="loading"
+      data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "light", "size": "default", "showuser": true}, "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": false}'>
+<!-- Pre-loader -->
+{% include 'care/shared/preloader.html' %}
+<!-- End Preloader-->
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    {% include 'care/adminapp/shared/topbar.html' %}
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    {% include 'care/adminapp/shared/left-sidebar.html' %}
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div> <!-- container -->
+
+        </div> <!-- content -->
+
+        <!-- Footer Start -->
+        {% include 'care/shared/footer.html' %}
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+{% include 'care/shared/right-sidebar.html' %}
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+{% include 'care/shared/js.html' %}
+<!-- plugin js -->
+{% block js %}{% endblock %}
+
+<script>
+    jQuery(document).ready(function () {
+        $('[data-plugin="select2"]').each(function () {
+            $(this).select2().val($(this).attr('data-default-value')).trigger('change.select2');
+        });
+        $("select").on("select2:close", function () {
+            $(this).valid();
+        });
+    });
+</script>
+
+<!--Notification JS-->
+<script src="{% static 'care/assets/libs/notification/js/notification.min.js' %}" type="text/javascript"></script>
+</body>
+</html>

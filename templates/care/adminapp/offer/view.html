@@ -1,0 +1,230 @@
+{% extends 'care/adminapp/master.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:home_view' %}">لوحة التحكم</a></li>
+                        <li class="breadcrumb-item active">إدارة الخصومات</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">إدارة بينات الخصومات</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+
+
+    <!-- start page search -->
+    <form action="#" method="get" data-url="{% url 'admin:api:offer-list' %}">
+        <input type="hidden" name="is_deleted" value="0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-title">معلومات البحث</div>
+                        <div class="sub-header"></div>
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="vendor">البائع</label>
+                                    <select class="form-control" id="vendor" name="vendor"
+                                            style="padding-bottom: 1px"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="code__contains">البحث عبر الكود</label>
+                                    <input type="text" id="code__contains" name="code__contains" class="form-control"
+                                           placeholder="البحث من خلال الكود">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="type">نوع كود الخصم</label>
+                                    <select class="form-control" id="type" name="type" data-plugin="select2"
+                                            style="padding-bottom: 1px">
+                                        <option value="">البحث عبر نوع الدفع للطلب</option>
+                                        {% for offer_type in offers_types %}
+                                            <option value="{{ offer_type.0 }}">{{ offer_type.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="expire_date">تاريخ انتهاء الكود</label>
+                                    <input type="text" id="expire_date" name="expire_date" class="form-control"
+                                           data-plugin="flatpickr" data-max-date=""
+                                           placeholder="البحث من خلال تاريخ انتهاء الكود">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="created_date">تاريخ الإنشاء</label>
+                                    <input type="text" id="created_date" name="created_date__date__range"
+                                           class="form-control" data-plugin="flatpickr" data-mode="range"
+                                           placeholder="البحث من خلال تاريخ الإنشاء">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="updated_date">تاريخ التحديث</label>
+                                    <input type="text" id="updated_date" name="updated_date__date__range"
+                                           class="form-control" data-plugin="flatpickr" data-mode="range"
+                                           placeholder="البحث من خلال تاريخ التحديث">
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <button id="filter" type="submit"
+                                        class="btn btn-primary width-xl waves-effect waves-light">
+                                    بحث
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+    </form>
+    <!-- end page search -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success waves-effect waves-light" data-plugin="redirect-to-page" data-url="{% url 'admin:offer_create_view' %}">
+                                <span class="btn-label d-none d-md-inline-block">
+                                    <i class="mdi mdi-plus"></i>
+                                </span>
+                                إضافة خصومات
+                            </button>
+                        </div>
+                    </div>
+                     <div class="col-lg-4">
+                        <div class="text-lg-right mt-3 mt-lg-0">
+                            <button type="button" class="btn btn-danger waves-effect waves-light" data-toggle="modal"
+                                    data-target="#deleted-offers-modal">
+                              <span class="btn-label d-none d-md-inline-block">
+                                  <i class="mdi mdi-trash-can-outline"></i>
+                              </span>
+                                قائمة المحذوفات
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-centered nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th>البائع</th>
+                                <th>الكود</th>
+                                <th>قيمة الخصم</th>
+                                <th>حالة الخصم</th>
+                                <th>العدد المسموح به للاستخدام</th>
+                                <th>إجمالي الاستخدامات</th>
+                                <th>تاريخ الانتهاء</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>تاريخ التعديل</th>
+                                <th style="width: 85px;">حدث</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <!-- deleted customers modal content -->
+    <div id="deleted-offers-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deletedOffersModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-full-width">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="deletedOffersModal">قائمة العملاء المحذوفين من النظام</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="#" method="get" class="d-none" data-url="{% url 'admin:api:offer-list' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="is_deleted" value="1">
+                                <button id="filter-deleted-offers"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="deleted-offers-datatable" class="table table-centered nowrap w-100">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 20px;">#</th>
+                                                <th>البائع</th>
+                                                <th>الكود</th>
+                                                <th>قيمة الخصم</th>
+                                                <th>حالة الخصم</th>
+                                                <th>العدد المسموح به للاستخدام</th>
+                                                <th>إجمالي الاستخدامات</th>
+                                                <th>تاريخ الانتهاء</th>
+                                                <th>تاريخ الإنشاء</th>
+                                                <th>تاريخ التعديل</th>
+                                                <th style="width: 85px;">حدث</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                </div> <!-- end card-body-->
+                            </div> <!-- end card-->
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">اغلاق النافذه</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- Datatables init -->
+    <script src="{% static 'care/assets/js/pages/offer.init.js' %}"></script>
+
+{% endblock %}
