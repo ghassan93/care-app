@@ -65,7 +65,8 @@ def send_marketing_email_view(request):
                 'attachments': attachment_data
             }
             template_name = 'care/email/marketing_email.html'
-            recipient_list = ['garabeed@gmail.com'] if settings.TESTING_EMAIL_MODE else [customer.email]
+            # recipient_list = ['garabeed@gmail.com'] if settings.TESTING_EMAIL_MODE else [customer.email]
+            recipient_list = ['garabeed@gmail.com']
 
             send_marketing_email_task.delay(
                 subject=subject,
