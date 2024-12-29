@@ -52,29 +52,35 @@ def send_marketing_email_view(request):
 
             attachment_data.append({
                 'name': attachment.name,
-    'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{attachment.name}",
+                'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{attachment.name}",
                 'content_type': attachment.content_type
             })
         print(attachment_data)
 
-        customers = Customer.objects.all()
-        for customer in customers:
-            context = {
-                'subject': subject,
-                'message': message,
-                'name': customer.name,
-                'attachments': attachment_data
-            }
-            template_name = 'care/email/marketing_email.html'
-            # recipient_list = ['garabeed@gmail.com'] if settings.TESTING_EMAIL_MODE else [customer.email]
-            recipient_list = ['garabeed@gmail.com']
-
-            send_marketing_email_task.delay(
-                subject=subject,
-                recipient_list=recipient_list,
-                context=context,
-                template_name=template_name
-            )
+        # customers = Customer.objects.all()
+        # for customer in customers:
+        #     context = {
+        #         'subject': subject,
+        #         'message': message,
+        #         'name': customer.name,
+        #         'attachments': attachment_data
+        #     }
+        template_name = 'care/email/marketing_email.html'
+        # recipient_list = ['garabeed@gmail.com'] if settings.TESTING_EMAIL_MODE else [customer.email]
+        recipient_list = {'email':'garabeed@gmail.com', 'name': 'ghassan'}
+        context = {
+            'subject': subject,
+            'message': message,
+            'name': recipient_list['name'],
+            'attachments': attachment_data
+        }
+        print(context)
+        send_marketing_email_task.delay(
+            subject=subject,
+            recipient_list=recipient_list['email'],
+            context=context,
+            template_name=template_name
+        )
 
         # عرض الصفحة بعد النجاح
         return render(request, 'care/email/sendSuccess.html')
