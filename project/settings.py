@@ -41,7 +41,7 @@ ADMINS = [(env("ADMIN_NAME"), env("ADMIN_EMAIL"))]
 ALLOWED_HOSTS = ['*']
 
 # Application definition
-
+SITE_DOMAIN = 'https://care-app.live'
 INSTALLED_APPS = [
     'modeltranslation',
     'django.contrib.admin',

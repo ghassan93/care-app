@@ -52,9 +52,10 @@ def send_marketing_email_view(request):
 
             attachment_data.append({
                 'name': attachment.name,
-                'url': f"{settings.MEDIA_URL}attachments/{attachment.name}",
+    'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{attachment.name}",
                 'content_type': attachment.content_type
             })
+        print(attachment_data)
 
         customers = Customer.objects.all()
         for customer in customers:
