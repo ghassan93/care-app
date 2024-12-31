@@ -78,7 +78,7 @@ def send_marketing_email_view(request):
         print(context)
         send_marketing_email_task.delay(
             subject=subject,
-            recipient_list=recipient_list,
+            recipient_list=[recipient_list],
             context=context,
             template_name=template_name
         )
