@@ -131,23 +131,23 @@ if SSL_REDIRECT:
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": env.str("SQL_ENGINE", default="django.db.backends.sqlite3"),
-#         "NAME": env.str("SQL_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
-#         "USER": env.str("SQL_USER", default=""),
-#         "PASSWORD": env.str("SQL_PASSWORD", default=""),
-#         "HOST": env.str("SQL_HOST", default=""),
-#         "PORT": env.str("SQL_PORT", default=""),
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": env.str("SQL_ENGINE", default="django.db.backends.sqlite3"),
+        "NAME": env.str("SQL_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": env.str("SQL_USER", default=""),
+        "PASSWORD": env.str("SQL_PASSWORD", default=""),
+        "HOST": env.str("SQL_HOST", default=""),
+        "PORT": env.str("SQL_PORT", default=""),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Customizing authentication in Django
