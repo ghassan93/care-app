@@ -67,17 +67,18 @@ def send_marketing_email_view(request):
         #     }
         template_name = 'care/email/marketing_email.html'
         # recipient_list = ['garabeed@gmail.com'] if settings.TESTING_EMAIL_MODE else [customer.email]
-        recipient_list = {'email':'garabeed@gmail.com', 'name': 'ghassan'}
+        recipientname = 'ghassan'
+        recipient_list = ['garabeed@gmail.com'] 
         context = {
             'subject': subject,
             'message': message,
-            'name': recipient_list['name'],
+            'name': recipientname,
             'attachments': attachment_data
         }
         print(context)
         send_marketing_email_task.delay(
             subject=subject,
-            recipient_list=recipient_list['email'],
+            recipient_list=recipient_list,
             context=context,
             template_name=template_name
         )
