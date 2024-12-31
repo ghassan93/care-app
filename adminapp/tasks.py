@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 @shared_task
 def send_marketing_email_task(subject, recipient_list, context, template_name,):
     logger.info("Task started: Preparing to send email...")
+    print(f"Task triggered with: {recipient_list}")
     try:
         logger.info(f"Recipient list: {recipient_list}")
         email_html_message = render_to_string(template_name, context)
