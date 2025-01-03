@@ -274,6 +274,9 @@ CELERY_TASK_DEFAULT_QUEUE = 'default'
 CELERY_TASK_DEFAULT_EXCHANGE = 'default'
 CELERY_TASK_DEFAULT_ROUTING_KEY = 'default'
 
+CELERY_TASK_ROUTES = {
+    'adminapp.tasks.send_marketing_email_task': {'queue': 'email_marketing'},
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
