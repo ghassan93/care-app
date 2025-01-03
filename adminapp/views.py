@@ -99,7 +99,6 @@ def send_marketing_email_view(request):
                         template_name='care/email/marketing_email.html'
                     )
                 )
-
         # Execute tasks in Celery as batches
         group(tasks).apply_async()
 
