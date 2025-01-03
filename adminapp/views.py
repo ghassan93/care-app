@@ -33,6 +33,18 @@ from math import ceil
  ============================================================== 
 """
 
+import unicodedata
+import re
+
+def normalize_filename(filename):
+    """
+    Normalize the filename to remove special characters and replace spaces with hyphens.
+    """
+    name, ext = os.path.splitext(filename)
+    name = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore').decode('ascii')
+    name = re.sub(r'[^\w\s-]', '', name).strip().lower()
+    name = re.sub(r'[-\s]+', '-', name)
+    return f"{name}{ext}"
 
 
 BATCH_SIZE = 100  # Size of each batch
@@ -49,23 +61,18 @@ def send_marketing_email_view(request):
 
         attachment_data = []
         for attachment in attachments:
-            # Sanitize file name using slugify
-            file_extension = os.path.splitext(attachment.name)[1]
-            sanitized_name = slugify(os.path.splitext(attachment.name)[0])
-            final_name = f"{sanitized_name}{file_extension}"
-
-            # Save the file
-            file_path = os.path.join(upload_folder, final_name)
+            sanitized_name = normalize_filename(attachment.name)
+            file_path = os.path.join(upload_folder, sanitized_name)
             with default_storage.open(file_path, 'wb+') as destination:
                 for chunk in attachment.chunks():
                     destination.write(chunk)
 
-            # Add attachment details
             attachment_data.append({
-                'name': final_name,
-                'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{final_name}",
+                'name': sanitized_name,
+                'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{sanitized_name}",
                 'content_type': attachment.content_type
             })
+
 
         # Retrieve customers from the database
         customers = Customer.objects.all()
