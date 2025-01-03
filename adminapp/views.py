@@ -24,7 +24,9 @@ from .tasks import send_marketing_email_task
 from project import settings
 import os
 from django.core.files.storage import default_storage
-
+from django.utils.text import slugify
+from celery import group
+from math import ceil
 """
  ============================================================== 
      Django View Application for display Pages in website
@@ -32,7 +34,8 @@ from django.core.files.storage import default_storage
 """
 
 
-from django.shortcuts import render
+
+BATCH_SIZE = 100  # Size of each batch
 
 def send_marketing_email_view(request):
     if request.method == 'POST':
@@ -40,53 +43,71 @@ def send_marketing_email_view(request):
         message = request.POST.get('message')
         attachments = request.FILES.getlist('attachments')
 
+        # Create a folder to save attachments
         upload_folder = os.path.join(settings.MEDIA_ROOT, 'attachments')
         os.makedirs(upload_folder, exist_ok=True)
 
         attachment_data = []
         for attachment in attachments:
-            file_path = os.path.join(upload_folder, attachment.name)
+            # Sanitize file name using slugify
+            file_extension = os.path.splitext(attachment.name)[1]
+            sanitized_name = slugify(os.path.splitext(attachment.name)[0])
+            final_name = f"{sanitized_name}{file_extension}"
+
+            # Save the file
+            file_path = os.path.join(upload_folder, final_name)
             with default_storage.open(file_path, 'wb+') as destination:
                 for chunk in attachment.chunks():
                     destination.write(chunk)
 
+            # Add attachment details
             attachment_data.append({
-                'name': attachment.name,
-                'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{attachment.name}",
+                'name': final_name,
+                'url': f"{settings.SITE_DOMAIN}{settings.MEDIA_URL}attachments/{final_name}",
                 'content_type': attachment.content_type
             })
-        print(attachment_data)
 
-        # customers = Customer.objects.all()
-        # for customer in customers:
-        #     context = {
-        #         'subject': subject,
-        #         'message': message,
-        #         'name': customer.name,
-        #         'attachments': attachment_data
-        #     }
-        template_name = 'care/email/marketing_email.html'
-        # recipient_list = ['garabeed@gmail.com'] if settings.TESTING_EMAIL_MODE else [customer.email]
-        recipientname = 'ghassan'
-        recipient_list = ['garabeed@gmail.com']
-        context = {
-            'subject': subject,
-            'message': message,
-            'name': recipientname,
-            'attachments': attachment_data
-        }
-        print(context)
-        send_marketing_email_task.delay(
-            subject=subject,
-            recipient_list=recipient_list,
-            context=context,
-            template_name=template_name
-        )
+        # Retrieve customers from the database
+        customers = Customer.objects.all()
+        total_customers = customers.count()
 
-        # عرض الصفحة بعد النجاح
+        # Split customers into batches
+        batches = ceil(total_customers / BATCH_SIZE)
+        print(f"Total customers: {total_customers}, Batches: {batches}")
+
+        tasks = []
+        for i in range(batches):
+            start = i * BATCH_SIZE
+            end = start + BATCH_SIZE
+            batch_customers = customers[start:end]
+
+            for customer in batch_customers:
+                recipient_list = [customer.email]
+                context = {
+                    'subject': subject,
+                    'message': message,
+                    'name': customer.name,  # Customize the name for each customer
+                    'attachments': attachment_data,
+                }
+
+                # Add the task to the task group
+                tasks.append(
+                    send_marketing_email_task.s(
+                        subject=subject,
+                        recipient_list=recipient_list,
+                        context=context,
+                        template_name='care/email/marketing_email.html'
+                    )
+                )
+
+        # Execute tasks in Celery as batches
+        group(tasks).apply_async()
+
+        # Render success page
         return render(request, 'care/email/sendSuccess.html')
 
     return render(request, 'care/email/send_email.html')
+
 
 
 
