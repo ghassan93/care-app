@@ -47,8 +47,8 @@ def normalize_filename(filename):
     return f"{name}{ext}"
 
 
-BATCH_SIZE = 100  # Size of each batch
-
+BATCH_SIZE = 10  
+DELAY_BETWEEN_BATCHES = 2
 def send_marketing_email_view(request):
     if request.method == 'POST':
         subject = request.POST.get('subject')
@@ -104,7 +104,7 @@ def send_marketing_email_view(request):
                         recipient_list=recipient_list,
                         context=context,
                         template_name='care/email/marketing_email.html'
-                    )
+                    ).set(countdown=i * DELAY_BETWEEN_BATCHES) 
                 )
         # Execute tasks in Celery as batches
         group(tasks).apply_async()
@@ -117,13 +117,14 @@ def send_marketing_email_view(request):
 
 
 
-from vendorapp.models import Vendor
-def test(request):
-    vendors=Vendor.objects.all()
+# from vendorapp.models import Vendor
+# def test(request):
+#     print(Vendor._meta.db_table)
+#     vendors=Vendor.objects.all()
  
-    for vendor in vendors:
-        print(vendor)
-    return render(request, 'care/email/marketing_email.html')
+#     for vendor in vendors:
+#         print(vendor)
+#     return render(request, 'care/email/marketing_email.html')
 
 
 

@@ -317,18 +317,11 @@ EMAIL_BACKEND = env.str('EMAIL_BACKEND', default='django.core.mail.backends.smtp
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env.int('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
+EMAIL_USE_SSL =  env.bool('EMAIL_USE_SSL', default=False)
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
-# Email configuration for Amazon SES
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env('EMAIL_HOST_AWS')
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = env('EMAIL_HOST_USER')  # Replace with your Access Key ID
-# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Replace with your Secret Access Key
-# DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # OTP configuration
 EXPIRY_TIME = 600
